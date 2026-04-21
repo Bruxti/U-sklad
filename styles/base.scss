@@ -1,0 +1,354 @@
+// Переменные
+$color-text: #2c2c2c;
+$color-hover: #e67e22;
+$color-bg: #ffffff;
+$shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+$transition: 0.2s ease;
+
+// Дополнительные переменные для footer
+$footer-bg: #0f172a;
+$footer-bg-inner: #111827;
+$footer-text: #d1d5db;
+$footer-muted: #94a3b8;
+$footer-border: rgba(255, 255, 255, 0.08);
+$footer-input-bg: #1f2937;
+
+// sass styles/base.scss styles.css
+
+// Сброс базовых отступов для ul, button (но можно вынести глобально)
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: blue;
+  padding: 1rem 2rem;
+  box-shadow: $shadow;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  // Логотип
+  &__logo {
+    img {
+      height: 40px;
+      width: auto;
+      display: block;
+      object-fit: contain;
+    }
+  }
+
+  // Центральные ссылки (текст по середине)
+  &__links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    a {
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      color: $color-text;
+      transition: color $transition;
+
+      &:hover {
+        color: $color-hover;
+      }
+    }
+  }
+
+  // Блок иконок справа
+  &__icons {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+  }
+
+  &__icon {
+    background: transparent;
+    border: none;
+    font-size: 1.3rem;
+    cursor: pointer;
+    color: $color-text;
+    padding: 0.3rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: color $transition, transform 0.1s;
+
+    &:hover {
+      color: $color-hover;
+    }
+
+    &:active {
+      transform: scale(0.96);
+    }
+  }
+
+  // Бургер-кнопка: по умолчанию скрыта (десктоп)
+  &__menu-toggle {
+    display: none;
+  }
+
+  // ===== АДАПТАЦИЯ ПОД ТЕЛЕФОН (ширина до 768px) =====
+  @media (max-width: 768px) {
+    padding: 0.8rem 1.2rem;
+
+    // Центральный текст (ссылки) полностью убираем
+    &__links {
+      display: none;
+    }
+
+    // В блоке с иконками появляется бургер
+    &__menu-toggle {
+      display: inline-flex;
+    }
+
+    &__icons {
+      gap: 1rem;
+    }
+
+    &__icon {
+      font-size: 1.2rem;
+    }
+  }
+
+  // Дополнительно для очень узких экранов (≤480px)
+  @media (max-width: 480px) {
+    padding: 0.6rem 1rem;
+
+    &__logo img {
+      height: 32px;
+    }
+
+    &__icons {
+      gap: 0.8rem;
+    }
+  }
+}
+
+.footer {
+  background: $footer-bg;
+  color: $footer-text;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  &__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 1.25rem;
+  }
+
+  &__top {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+    gap: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid $footer-border;
+  }
+
+  &__brand {
+    max-width: 280px;
+  }
+
+  &__logo {
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    text-decoration: none;
+
+    img {
+      display: block;
+      height: 42px;
+      width: auto;
+      object-fit: contain;
+    }
+  }
+
+  &__description {
+    margin: 0;
+    color: $footer-muted;
+    line-height: 1.6;
+    font-size: 0.95rem;
+
+    &--small {
+      margin-bottom: 1rem;
+    }
+  }
+
+  &__column {
+    min-width: 0;
+  }
+
+  &__title {
+    margin: 0 0 1rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #ffffff;
+  }
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.75rem;
+
+    a {
+      color: $footer-text;
+      text-decoration: none;
+      transition: color $transition, opacity $transition;
+
+      &:hover {
+        color: $color-hover;
+      }
+    }
+  }
+
+  &__subscribe {
+    display: flex;
+    align-items: stretch;
+    gap: 0.5rem;
+    max-width: 100%;
+  }
+
+  &__input {
+    flex: 1 1 auto;
+    min-width: 0;
+    height: 42px;
+    padding: 0 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+    background: $footer-input-bg;
+    color: #ffffff;
+    outline: none;
+    transition: border-color $transition, box-shadow $transition;
+
+    &::placeholder {
+      color: #9ca3af;
+    }
+
+    &:focus {
+      border-color: $color-hover;
+      box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.15);
+    }
+  }
+
+  &__submit {
+    width: 44px;
+    height: 42px;
+    border: none;
+    border-radius: 4px;
+    background: $color-hover;
+    color: #ffffff;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform $transition, opacity $transition, background-color $transition;
+
+    &:hover {
+      opacity: 0.92;
+    }
+
+    &:active {
+      transform: scale(0.97);
+    }
+  }
+
+  &__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 0 0.25rem;
+  }
+
+  &__copy {
+    margin: 0;
+    color: $footer-muted;
+    font-size: 0.92rem;
+  }
+
+  &__social {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &__social-link {
+    color: $footer-muted;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color $transition, transform $transition;
+
+    &:hover {
+      color: #ffffff;
+    }
+
+    &:active {
+      transform: scale(0.96);
+    }
+  }
+
+  // ===== АДАПТАЦИЯ ПОД ТЕЛЕФОН =====
+  // Колонки не идут друг под другом, а выстраиваются горизонтально в 2 столбца
+  @media (max-width: 768px) {
+    &__container {
+      padding: 2rem 1rem 1rem;
+    }
+
+    &__top {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.5rem 1rem;
+    }
+
+    &__brand {
+      max-width: none;
+    }
+
+    &__logo img {
+      height: 36px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    &__top {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.25rem 0.9rem;
+    }
+
+    &__title {
+      font-size: 1rem;
+      margin-bottom: 0.85rem;
+    }
+
+    &__description,
+    &__copy {
+      font-size: 0.88rem;
+    }
+
+    &__subscribe {
+      flex-direction: row;
+    }
+
+    &__input {
+      height: 40px;
+      padding: 0 0.85rem;
+    }
+
+    &__submit {
+      width: 42px;
+      height: 40px;
+    }
+
+    &__bottom {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    &__social {
+      gap: 0.85rem;
+    }
+  }
+}
