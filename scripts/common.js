@@ -1,6 +1,7 @@
 (() => {
   const PRODUCTS_URL = './data.json';
   const CART_STORAGE_KEY = 'pawsstore_cart_ids';
+  const CART_CHANGE_EVENT = 'pawsstore:cartchange';
 
   function normalizeId(value) {
     const id = Number(value);
@@ -40,12 +41,43 @@
     }
   }
 
+  function getCartCount() {
+    return getCartIds().length;
+  }
+
+  function updateCartBadges() {
+    const count = getCartCount();
+    const badges = document.querySelectorAll('[data-cart-badge]');
+
+    badges.forEach((badge) => {
+      badge.textContent = String(count);
+      badge.hidden = count === 0;
+    });
+
+    return count;
+  }
+
+  function emitCartChange() {
+    const count = updateCartBadges();
+
+    window.dispatchEvent(
+      new CustomEvent(CART_CHANGE_EVENT, {
+        detail: {
+          count,
+          ids: getCartIds()
+        }
+      })
+    );
+  }
+
   function saveCartIds(ids) {
     const validIds = ids
       .map(normalizeId)
       .filter((id) => id !== null);
 
     localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(validIds));
+    emitCartChange();
+
     return validIds;
   }
 
@@ -160,10 +192,27 @@
       }));
   }
 
+  function initCartBadgeSync() {
+    updateCartBadges();
+
+    window.addEventListener('storage', (event) => {
+      if (event.key === CART_STORAGE_KEY) {
+        updateCartBadges();
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCartBadges();
+    });
+  }
+
+  initCartBadgeSync();
+
   window.PawsStore = {
     normalizeId,
     toProduct,
     getCartIds,
+    getCartCount,
     saveCartIds,
     addToCart,
     removeOneFromCart,
@@ -173,6 +222,8 @@
     getHomeProducts,
     getProductById,
     filterProducts,
-    getCartProducts
+    getCartProducts,
+    updateCartBadges,
+    emitCartChange
   };
 })();
