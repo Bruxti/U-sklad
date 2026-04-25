@@ -18,7 +18,7 @@
 <nav class="navbar">
   <!-- Логотип слева -->
   <div class="navbar__logo">
-    <img src="logo.png" alt="PawsStore">
+    <img src="images/logo.png" alt="PawsStore">
   </div>
 
   <!-- Центральные ссылки (скрываются на телефоне) -->
@@ -45,14 +45,129 @@
 </nav>
   </header>
 
-  <main></main>
+  <main>
+<section class="catalog">
+  <div class="catalog__container">
+    <aside class="catalog__sidebar">
+      <h2 class="catalog__sidebar-title">Filters</h2>
+
+      <div class="catalog__filters">
+        <div class="catalog__filter-group">
+          <h3 class="catalog__filter-title">Rating</h3>
+
+          <label class="catalog__check">
+            <input type="checkbox" name="rating" value="5" />
+            <span>5+ Stars</span>
+          </label>
+
+          <label class="catalog__check">
+            <input type="checkbox" name="rating" value="4" />
+            <span>4+ Stars</span>
+          </label>
+
+          <label class="catalog__check">
+            <input type="checkbox" name="rating" value="3" />
+            <span>3+ Stars</span>
+          </label>
+        </div>
+
+        <div class="catalog__filter-group">
+          <h3 class="catalog__filter-title">Price Range</h3>
+
+          <div class="catalog__price-row">
+            <label class="catalog__price-field">
+              <span class="catalog__price-label">Min</span>
+              <input type="number" min="0" placeholder="$ 0" />
+            </label>
+
+            <span class="catalog__price-separator">-</span>
+
+            <label class="catalog__price-field">
+              <span class="catalog__price-label">Max</span>
+              <input type="number" min="0" placeholder="$ 100" />
+            </label>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <div class="catalog__content">
+      <div class="catalog__searchbar">
+        <label class="catalog__search">
+          <span class="catalog__search-icon">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </span>
+          <input type="search" placeholder="Search products" aria-label="Search products" />
+        </label>
+
+        <div class="catalog__sort">
+          <span class="catalog__sort-label">Sort by:</span>
+          <select class="catalog__select" aria-label="Sort products">
+            <option>Name (A-Z)</option>
+            <option>Name (Z-A)</option>
+            <option>Price (Low to High)</option>
+            <option>Price (High to Low)</option>
+            <option>Rating</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="catalog__toolbar">
+        <p class="catalog__count">6 products</p>
+      </div>
+
+      <div class="catalog__grid" id="products-grid">
+        <!--
+          JS later:
+          1) fetch('./data.json')
+          2) clone template below
+          3) fill title/rating/price/name
+          4) append cards here
+        -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<template id="product-card-template">
+  <article class="product-card" data-product-card>
+    <div class="product-card__media">
+      <img
+        src="placeholder.png"
+        alt=""
+        class="product-card__image"
+        data-product-image
+      />
+      <span class="product-card__badge" data-product-price>$54.99</span>
+    </div>
+
+    <div class="product-card__body">
+      <h3 class="product-card__title" data-product-title>
+        Airline-Approved Pet Travel Carrier
+      </h3>
+
+      <div class="product-card__rating" data-product-rating>
+        <div class="product-card__stars" aria-hidden="true">
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-regular fa-star"></i>
+        </div>
+        <span class="product-card__reviews" data-product-reviews>(4)</span>
+      </div>
+    </div>
+  </article>
+</template>
+    
+  </main>
 
 <footer class="footer">
   <div class="footer__container">
     <div class="footer__top">
       <div class="footer__brand">
         <a href="/" class="footer__logo" aria-label="PawsStore">
-          <img src="logo.png" alt="PawsStore" />
+          <img src="images/logo.png" alt="PawsStore" />
         </a>
 
         <p class="footer__description">
