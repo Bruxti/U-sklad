@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "name": "Airline-Approved Pet Travel Carrier",
+    "thumbnail": "images/placeholder_1.png",
+    "price": 54.99,
+    "rating": 4.0,
+    "tags": ["travel", "carrier", "pet"],
+    "description": "Compact airline-approved carrier for safe and comfortable pet transport.",
+    "specs": [
+      "Dimensions: 45 x 28 x 27 cm",
+      "Weight: 1.2 kg",
+      "Material: reinforced fabric",
+      "Recommended for: cats and small dogs"
+    ],
+    "highlights": [
+      "Airline-friendly size",
+      "Mesh ventilation",
+      "Padded shoulder strap"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Interactive Rubber Chew Ball",
+    "thumbnail": "images/placeholder_2.png",
+    "price": 15.99,
+    "rating": 5.0,
+    "tags": ["toy", "dog", "interactive"],
+    "description": "Durable chew toy designed to keep dogs engaged and active.",
+    "specs": [
+      "Diameter: 8 cm",
+      "Material: rubber",
+      "Suitable for: medium and large dogs",
+      "Texture: treat-friendly surface"
+    ],
+    "highlights": [
+      "Helps reduce boredom",
+      "Safe chew design",
+      "Easy to clean"
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Multi-Level Cat Scratching Post",
+    "thumbnail": "images/placeholder_3.png",
+    "price": 89.99,
+    "rating": 4.5,
+    "tags": ["cat", "scratcher", "home"],
+    "description": "Multi-level scratching post with stable base and play features for indoor cats.",
+    "specs": [
+      "Height: 92 cm",
+      "Base: reinforced board",
+      "Material: sisal and plush",
+      "Suitable for: indoor cats"
+    ],
+    "highlights": [
+      "Multiple scratching surfaces",
+      "Stable construction",
+      "Integrated play elements"
+    ]
+  }
+]
