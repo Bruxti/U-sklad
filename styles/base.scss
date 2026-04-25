@@ -2014,3 +2014,7 @@ $cart-page-empty-icon-color: #ff6a00;
     transform: translateY(0);
   }
 }
+
+.cart-page__empty[hidden] {
+    display: none;
+}

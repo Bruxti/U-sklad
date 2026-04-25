@@ -65,6 +65,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   function renderEmpty() {
+    console.log("empty state = " + emptyState)
     if (itemsRoot) itemsRoot.innerHTML = '';
     if (emptyState) emptyState.hidden = false;
     if (summaryPanel) summaryPanel.hidden = true;
@@ -140,8 +141,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       if (countEl) countEl.textContent = getItemCountText(count);
       if (summaryCountEl) summaryCountEl.textContent = `${count} item${count === 1 ? '' : 's'} in your bag`;
-
-      if (!items.length) {
+      if (cartIds.length === 0) {
         renderEmpty();
         return;
       }

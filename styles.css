@@ -1646,5 +1646,8 @@
     transform: translateY(0);
   }
 }
+.cart-page__empty[hidden] {
+  display: none;
+}
 
 /*# sourceMappingURL=styles.css.map */
