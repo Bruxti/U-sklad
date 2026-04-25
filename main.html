@@ -103,13 +103,13 @@
 
         <div class="catalog__sort">
           <span class="catalog__sort-label">Sort by:</span>
-          <select class="catalog__select" aria-label="Sort products">
-            <option>Name (A-Z)</option>
-            <option>Name (Z-A)</option>
-            <option>Price (Low to High)</option>
-            <option>Price (High to Low)</option>
-            <option>Rating</option>
-          </select>
+<select class="catalog__select" aria-label="Sort products">
+  <option value="name-asc">Name (A-Z)</option>
+  <option value="name-desc">Name (Z-A)</option>
+  <option value="price-asc">Price (Low to High)</option>
+  <option value="price-desc">Price (High to Low)</option>
+  <option value="rating-desc">Rating</option>
+</select>
         </div>
       </div>
 
@@ -132,19 +132,23 @@
 
 <template id="product-card-template">
   <article class="product-card" data-product-card>
-    <div class="product-card__media">
-      <img
-        src="placeholder.png"
-        alt=""
-        class="product-card__image"
-        data-product-image
-      />
-      <span class="product-card__badge" data-product-price>$54.99</span>
-    </div>
+    <a class="product-card__media-link" data-product-link href="#">
+      <div class="product-card__media">
+        <img
+          src="placeholder.png"
+          alt=""
+          class="product-card__image"
+          data-product-image
+        />
+        <span class="product-card__badge" data-product-price>$54.99</span>
+      </div>
+    </a>
 
     <div class="product-card__body">
-      <h3 class="product-card__title" data-product-title>
-        Airline-Approved Pet Travel Carrier
+      <h3 class="product-card__title">
+        <a class="product-card__title-link" data-product-link href="#" data-product-title>
+          Airline-Approved Pet Travel Carrier
+        </a>
       </h3>
 
       <div class="product-card__rating" data-product-rating>
@@ -155,8 +159,12 @@
           <i class="fa-solid fa-star"></i>
           <i class="fa-regular fa-star"></i>
         </div>
-        <span class="product-card__reviews" data-product-reviews>(4)</span>
+        <span class="product-card__reviews" data-product-reviews>(4.0)</span>
       </div>
+
+      <button type="button" class="product-card__add" data-product-add-to-cart>
+        Add to cart
+      </button>
     </div>
   </article>
 </template>
