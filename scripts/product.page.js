@@ -98,6 +98,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   const product = await window.PawsStore.getProductById(productId);
+  updateCartButton(product.id, addButton);
 
   if (!product) {
     if (titleEl) titleEl.textContent = 'Product not found';
@@ -105,6 +106,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (addButton) addButton.disabled = true;
     return;
   }
+
+  updateCartButton(product.id, addButton);
+
+window.addEventListener('pawsstore:cartchange', () => {
+  updateCartButton(product.id, addButton);
+});
 
   if (titleEl) titleEl.textContent = product.name;
 
@@ -179,18 +186,31 @@ document.addEventListener('DOMContentLoaded', async () => {
     accordionToggle.addEventListener('click', toggleAccordion);
   }
 
-  if (addButton) {
-    addButton.addEventListener('click', () => {
-      for (let index = 0; index < quantity; index += 1) {
-        window.PawsStore.addToCart(product.id);
-      }
+if (addButton) {
+  addButton.addEventListener('click', () => {
+    for (let index = 0; index < quantity; index += 1) {
+      window.PawsStore.addToCart(product.id);
+    }
 
-      addButton.classList.add('product-page__cart-button--active');
-      setTimeout(() => {
-        addButton.classList.remove('product-page__cart-button--active');
-      }, 180);
-    });
-  }
+    updateCartButton(product.id, addButton);
+  });
+}
 
   renderQuantity();
 });
+function updateCartButton(productId, button) {
+  if (!button) return;
+
+  const cartIds = window.PawsStore.getCartIds();
+  const inCart = cartIds.includes(productId);
+
+  if (inCart) {
+    button.textContent = 'In cart';
+    button.disabled = true;
+    button.classList.add('product-page__cart-button--in-cart');
+  } else {
+    button.textContent = 'Add to cart';
+    button.disabled = false;
+    button.classList.remove('product-page__cart-button--in-cart');
+  }
+}
