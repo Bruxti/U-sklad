@@ -8,22 +8,23 @@
     return Number.isInteger(id) && id > 0 ? id : null;
   }
 
-  function toProduct(raw, cartIds = []) {
-    const id = normalizeId(raw.id);
+function toProduct(raw, cartIds = []) {
+  const id = normalizeId(raw.id);
 
-    return {
-      id,
-      name: String(raw.name ?? ''),
-      thumbnail: String(raw.thumbnail ?? ''),
-      price: Number(raw.price ?? 0),
-      rating: Number(raw.rating ?? 0),
-      tags: Array.isArray(raw.tags) ? raw.tags.map(String) : [],
-      description: String(raw.description ?? ''),
-      specs: Array.isArray(raw.specs) ? raw.specs.map(String) : [],
-      highlights: Array.isArray(raw.highlights) ? raw.highlights.map(String) : [],
-      isInTheCart: id !== null ? cartIds.includes(id) : false
-    };
-  }
+  return {
+    id,
+    name: String(raw.name ?? ''),
+    thumbnail: String(raw.thumbnail ?? ''),
+    images: Array.isArray(raw.images) ? raw.images.map(String) : [],
+    price: Number(raw.price ?? 0),
+    rating: Number(raw.rating ?? 0),
+    tags: Array.isArray(raw.tags) ? raw.tags.map(String) : [],
+    description: String(raw.description ?? ''),
+    specs: Array.isArray(raw.specs) ? raw.specs.map(String) : [],
+    highlights: Array.isArray(raw.highlights) ? raw.highlights.map(String) : [],
+    isInTheCart: id !== null ? cartIds.includes(id) : false
+  };
+}
 
   function getCartIds() {
     try {

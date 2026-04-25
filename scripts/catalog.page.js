@@ -157,11 +157,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       ratingBlock.setAttribute('aria-label', `Rating ${product.rating} out of 5 stars`);
     }
 
-    if (addButton) {
-      const inCart = Boolean(product.isInTheCart);
-      addButton.textContent = inCart ? 'In cart' : 'Add to cart';
-      addButton.classList.toggle('product-card__add--active', inCart);
-    }
+if (addButton) {
+  addButton.textContent = 'Add to cart';
+}
 
     setLinkTargets(node, product.id);
 

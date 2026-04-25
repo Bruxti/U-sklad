@@ -3,6 +3,11 @@
     "id": 1,
     "name": "Airline-Approved Pet Travel Carrier",
     "thumbnail": "images/placeholder_1.png",
+	"images": [
+      "images/placeholder_1.png",
+      "images/placeholder_2.png",
+      "images/placeholder_3.png"
+    ],
     "price": 54.99,
     "rating": 4.0,
     "tags": ["travel", "carrier", "pet"],
@@ -23,6 +28,11 @@
     "id": 2,
     "name": "Interactive Rubber Chew Ball",
     "thumbnail": "images/placeholder_2.png",
+	"images": [
+      "images/placeholder_1.png",
+      "images/placeholder_2.png",
+      "images/placeholder_3.png"
+    ],
     "price": 15.99,
     "rating": 5.0,
     "tags": ["toy", "dog", "interactive"],
@@ -43,6 +53,11 @@
     "id": 3,
     "name": "Multi-Level Cat Scratching Post",
     "thumbnail": "images/placeholder_3.png",
+	"images": [
+      "images/placeholder_1.png",
+      "images/placeholder_2.png",
+      "images/placeholder_3.png"
+    ],
     "price": 89.99,
     "rating": 4.5,
     "tags": ["cat", "scratcher", "home"],

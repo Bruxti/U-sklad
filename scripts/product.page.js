@@ -15,8 +15,14 @@ document.addEventListener('DOMContentLoaded', async () => {
   const minusButton = document.querySelector('[data-quantity-minus]');
   const plusButton = document.querySelector('[data-quantity-plus]');
   const quantityValue = document.querySelector('[data-quantity-value]');
+  const thumbsRoot = document.querySelector('[data-product-thumbs]');
+  const prevButton = document.querySelector('[data-slider-prev]');
+  const nextButton = document.querySelector('[data-slider-next]');
+  const accordionToggle = document.querySelector('[data-accordion-toggle]');
+  const accordionPanel = document.querySelector('[data-accordion-panel]');
 
   let quantity = 1;
+  let currentImageIndex = 0;
   const maxQuantity = 99;
 
   function formatMoney(value) {
@@ -50,6 +56,47 @@ document.addEventListener('DOMContentLoaded', async () => {
     return stars.join('');
   }
 
+  function setActiveImage(product) {
+    const images = (product.images && product.images.length ? product.images : [product.thumbnail])
+      .filter(Boolean);
+
+    const safeIndex = Math.max(0, Math.min(currentImageIndex, images.length - 1));
+    currentImageIndex = safeIndex;
+
+    if (imageEl) {
+      imageEl.src = images[safeIndex];
+      imageEl.alt = product.name;
+    }
+
+    if (thumbsRoot) {
+      thumbsRoot.innerHTML = images
+        .map((src, index) => {
+          const isActive = index === safeIndex ? ' product-page__thumb--active' : '';
+          return `
+            <button type="button" class="product-page__thumb${isActive}" data-thumb-index="${index}" aria-label="Show image ${index + 1}">
+              <img src="${src}" alt="">
+            </button>
+          `;
+        })
+        .join('');
+
+      thumbsRoot.querySelectorAll('[data-thumb-index]').forEach((button) => {
+        button.addEventListener('click', () => {
+          currentImageIndex = Number(button.dataset.thumbIndex);
+          setActiveImage(product);
+        });
+      });
+    }
+  }
+
+  function toggleAccordion() {
+    if (!accordionToggle || !accordionPanel) return;
+
+    const isOpen = accordionToggle.getAttribute('aria-expanded') === 'true';
+    accordionToggle.setAttribute('aria-expanded', String(!isOpen));
+    accordionPanel.hidden = isOpen;
+  }
+
   const product = await window.PawsStore.getProductById(productId);
 
   if (!product) {
@@ -60,11 +107,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   if (titleEl) titleEl.textContent = product.name;
-
-  if (imageEl) {
-    imageEl.src = product.thumbnail;
-    imageEl.alt = product.name;
-  }
 
   if (priceEl) {
     priceEl.textContent = formatMoney(product.price);
@@ -101,6 +143,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       .join('');
   }
 
+  setActiveImage(product);
+
   if (minusButton) {
     minusButton.addEventListener('click', () => {
       quantity = Math.max(1, quantity - 1);
@@ -113,6 +157,26 @@ document.addEventListener('DOMContentLoaded', async () => {
       quantity = Math.min(maxQuantity, quantity + 1);
       renderQuantity();
     });
+  }
+
+  if (prevButton) {
+    prevButton.addEventListener('click', () => {
+      const images = (product.images && product.images.length ? product.images : [product.thumbnail]).filter(Boolean);
+      currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+      setActiveImage(product);
+    });
+  }
+
+  if (nextButton) {
+    nextButton.addEventListener('click', () => {
+      const images = (product.images && product.images.length ? product.images : [product.thumbnail]).filter(Boolean);
+      currentImageIndex = (currentImageIndex + 1) % images.length;
+      setActiveImage(product);
+    });
+  }
+
+  if (accordionToggle) {
+    accordionToggle.addEventListener('click', toggleAccordion);
   }
 
   if (addButton) {
