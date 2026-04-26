@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const promoButton = document.querySelector('[data-promo-apply]');
   const promoMessage = document.querySelector('[data-promo-message]');
   const backButtons = document.querySelectorAll('[data-cart-back]');
-  const layout = document.querySelector('.cart-page__layout');
+  const layout = document.querySelector('.cart-page_layout');
   const checkoutButton = document.querySelector('[data-cart-checkout]');
 
   const PROMO_CODE = 'SAVE10';
@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (itemsRoot) itemsRoot.innerHTML = '';
     if (emptyState) emptyState.hidden = false;
     if (summaryPanel) summaryPanel.hidden = true;
-    layout?.classList.add('cart-page__layout--empty');
+    layout?.classList.add('cart-page_layout--empty');
 
     if (countEl) countEl.textContent = '0 товар(ов) готов(о) к оформлению';
     if (summaryCountEl) summaryCountEl.textContent = '0 товар(ов) в корзине';
@@ -106,30 +106,30 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     return `
       <article class="cart-item" data-product-id="${item.id}">
-        <a class="cart-item__link" href="${productUrl}" aria-label="Открыть товар ${item.name}">
-          <img class="cart-item__image" src="${item.thumbnail}" alt="${item.name}">
-          <div class="cart-item__content">
-            <h3 class="cart-item__title">${item.name}</h3>
-            <p class="cart-item__subtitle">${item.tag}</p>
-            <div class="cart-item__meta">
-              <div class="cart-item__rating" aria-label="Рейтинг ${item.quantity}">
-                <span class="cart-item__stars">${renderStars(4)}</span>
+        <a class="cart-item_link" href="${productUrl}" aria-label="Открыть товар ${item.name}">
+          <img class="cart-item_image" src="${item.thumbnail}" alt="${item.name}">
+          <div class="cart-item_content">
+            <h3 class="cart-item_title">${item.name}</h3>
+            <p class="cart-item_subtitle">${item.tag}</p>
+            <div class="cart-item_meta">
+              <div class="cart-item_rating" aria-label="Рейтинг ${item.quantity}">
+                <span class="cart-item_stars">${renderStars(4)}</span>
               </div>
-              <p class="cart-item__unit-price">${formatMoney(item.price)} за шт.</p>
+              <p class="cart-item_unit-price">${formatMoney(item.price)} за шт.</p>
             </div>
           </div>
         </a>
 
-        <div class="cart-item__actions">
-          <div class="cart-item__qty">
-            <button type="button" class="cart-item__qty-btn" data-cart-action="decrease" aria-label="Уменьшить количество">−</button>
-            <span class="cart-item__qty-value">${item.quantity}</span>
-            <button type="button" class="cart-item__qty-btn" data-cart-action="increase" aria-label="Увеличить количество">+</button>
+        <div class="cart-item_actions">
+          <div class="cart-item_qty">
+            <button type="button" class="cart-item_qty-btn" data-cart-action="decrease" aria-label="Уменьшить количество">−</button>
+            <span class="cart-item_qty-value">${item.quantity}</span>
+            <button type="button" class="cart-item_qty-btn" data-cart-action="increase" aria-label="Увеличить количество">+</button>
           </div>
 
-          <div class="cart-item__price">${formatMoney(item.lineTotal)}</div>
+          <div class="cart-item_price">${formatMoney(item.lineTotal)}</div>
 
-          <button type="button" class="cart-item__remove" data-cart-action="remove" aria-label="Удалить товар">
+          <button type="button" class="cart-item_remove" data-cart-action="remove" aria-label="Удалить товар">
             <i class="fa-regular fa-trash-can"></i>
           </button>
         </div>
@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       if (emptyState) emptyState.hidden = true;
       if (summaryPanel) summaryPanel.hidden = false;
-      layout?.classList.remove('cart-page__layout--empty');
+      layout?.classList.remove('cart-page_layout--empty');
 
       if (itemsRoot) {
         itemsRoot.innerHTML = items.map(renderItem).join('');

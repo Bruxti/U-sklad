@@ -12,94 +12,94 @@
 <body>
   <div id="header"></div>
   <main class="cart-page">
-    <div class="cart-page__container">
-      <div class="cart-page__header">
+    <div class="cart-page_container">
+      <div class="cart-page_header">
         <div>
-          <h1 class="cart-page__title">Корзина</h1>
-          <p class="cart-page__subtitle" data-cart-count>1 товар готов к оформлению</p>
+          <h1 class="cart-page_title">Корзина</h1>
+          <p class="cart-page_subtitle" data-cart-count>1 товар готов к оформлению</p>
         </div>
 
-        <div class="cart-page__steps" aria-label="Этапы оформления">
-          <span class="cart-page__step cart-page__step--active">1</span>
-          <span class="cart-page__step-label">Корзина</span>
-          <span class="cart-page__step-separator">›</span>
-          <span class="cart-page__step">2</span>
-          <span class="cart-page__step-label">Оформление</span>
-          <span class="cart-page__step-separator">›</span>
-          <span class="cart-page__step">3</span>
-          <span class="cart-page__step-label">Готово</span>
+        <div class="cart-page_steps" aria-label="Этапы оформления">
+          <span class="cart-page_step cart-page_step--active">1</span>
+          <span class="cart-page_step-label">Корзина</span>
+          <span class="cart-page_step-separator">›</span>
+          <span class="cart-page_step">2</span>
+          <span class="cart-page_step-label">Оформление</span>
+          <span class="cart-page_step-separator">›</span>
+          <span class="cart-page_step">3</span>
+          <span class="cart-page_step-label">Готово</span>
         </div>
       </div>
 
-      <section class="cart-page__layout">
-        <div class="cart-page__items-wrap">
-          <div class="cart-page__items" data-cart-items></div>
+      <section class="cart-page_layout">
+        <div class="cart-page_items-wrap">
+          <div class="cart-page_items" data-cart-items></div>
 
-          <div class="cart-page__empty" data-cart-empty hidden>
-            <div class="cart-page__empty-icon">
+          <div class="cart-page_empty" data-cart-empty hidden>
+            <div class="cart-page_empty-icon">
               <i class="fa-solid fa-bag-shopping"></i>
             </div>
 
-            <h2 class="cart-page__empty-title">Ваша корзина пуста</h2>
-            <p class="cart-page__empty-text">
+            <h2 class="cart-page_empty-title">Ваша корзина пуста</h2>
+            <p class="cart-page_empty-text">
               Откройте для себя удивительные товары для вашего дома!
             </p>
 
-            <button type="button" class="cart-page__empty-button" data-cart-back>
+            <button type="button" class="cart-page_empty-button" data-cart-back>
               Вернуться в каталог
               <i class="fa-solid fa-arrow-right"></i>
             </button>
           </div>
         </div>
 
-        <aside class="cart-page__summary" data-cart-summary>
+        <aside class="cart-page_summary" data-cart-summary>
           <div class="cart-summary">
-            <div class="cart-summary__header">
-              <h2 class="cart-summary__title">Сводка заказа</h2>
-              <p class="cart-summary__subtitle" data-cart-summary-count>1 товар в корзине</p>
+            <div class="cart-summary_header">
+              <h2 class="cart-summary_title">Сводка заказа</h2>
+              <p class="cart-summary_subtitle" data-cart-summary-count>1 товар в корзине</p>
             </div>
 
-            <div class="cart-summary__promo">
-              <label class="cart-summary__label" for="promo-code">
+            <div class="cart-summary_promo">
+              <label class="cart-summary_label" for="promo-code">
                 <i class="fa-regular fa-ticket"></i>
                 Промокод
               </label>
 
-              <div class="cart-summary__promo-row">
+              <div class="cart-summary_promo-row">
                 <input
                   id="promo-code"
                   type="text"
-                  class="cart-summary__input"
+                  class="cart-summary_input"
                   placeholder="Введите код"
                   data-promo-input
                 >
-                <button type="button" class="cart-summary__button" data-promo-apply>Применить</button>
+                <button type="button" class="cart-summary_button" data-promo-apply>Применить</button>
               </div>
 
-              <p class="cart-summary__message" data-promo-message></p>
+              <p class="cart-summary_message" data-promo-message></p>
             </div>
 
-            <dl class="cart-summary__totals">
-              <div class="cart-summary__row">
+            <dl class="cart-summary_totals">
+              <div class="cart-summary_row">
                 <dt>Подытог</dt>
                 <dd data-cart-subtotal>$0.00</dd>
               </div>
-              <div class="cart-summary__row">
+              <div class="cart-summary_row">
                 <dt>Скидка</dt>
                 <dd data-cart-discount>$0.00</dd>
               </div>
-              <div class="cart-summary__row cart-summary__row--total">
+              <div class="cart-summary_row cart-summary_row--total">
                 <dt>Итого</dt>
                 <dd data-cart-total>$0.00</dd>
               </div>
             </dl>
 
-            <button type="button" class="cart-summary__checkout" data-cart-checkout>
+            <button type="button" class="cart-summary_checkout" data-cart-checkout>
               <i class="fa-solid fa-lock"></i>
               Перейти к оформлению
             </button>
 
-            <button type="button" class="cart-summary__back" data-cart-back>
+            <button type="button" class="cart-summary_back" data-cart-back>
               <i class="fa-solid fa-arrow-left"></i>
               Продолжить покупки
             </button>

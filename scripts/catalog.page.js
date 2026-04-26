@@ -3,11 +3,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const grid = document.getElementById('products-grid');
   const template = document.getElementById('product-card-template');
-  const countEl = document.querySelector('.catalog__count');
-  const searchInput = document.querySelector('.catalog__search input');
-  const sortSelect = document.querySelector('.catalog__select');
+  const countEl = document.querySelector('.catalog_count');
+  const searchInput = document.querySelector('.catalog_search input');
+  const sortSelect = document.querySelector('.catalog_select');
   const ratingInputs = document.querySelectorAll('input[name="rating"]');
-  const priceInputs = document.querySelectorAll('.catalog__price-field input');
+  const priceInputs = document.querySelectorAll('.catalog_price-field input');
 
   if (!grid || !template) return;
 
@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const price = node.querySelector('[data-product-price]');
     const title = node.querySelector('[data-product-title]');
     const reviews = node.querySelector('[data-product-reviews]');
-    const stars = node.querySelector('.product-card__stars');
+    const stars = node.querySelector('.product-card_stars');
     const ratingBlock = node.querySelector('[data-product-rating]');
     const addButton = node.querySelector('[data-product-add-to-cart]');
 
@@ -191,7 +191,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     if (!filtered.length) {
       const empty = document.createElement('div');
-      empty.className = 'catalog__empty';
+      empty.className = 'catalog_empty';
       empty.textContent = 'Товары не найдены.';
       grid.appendChild(empty);
       return;
@@ -231,6 +231,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     render();
   } catch (error) {
     console.error(error);
-    grid.innerHTML = '<div class="catalog__empty">Не удалось загрузить товары.</div>';
+    grid.innerHTML = '<div class="catalog_empty">Не удалось загрузить товары.</div>';
   }
 });

@@ -73,9 +73,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (thumbsRoot) {
       thumbsRoot.innerHTML = images
         .map((src, index) => {
-          const isActive = index === safeIndex ? ' product-page__thumb--active' : '';
+          const isActive = index === safeIndex ? ' product-page_thumb--active' : '';
           return `
-            <button type="button" class="product-page__thumb${isActive}" data-thumb-index="${index}" aria-label="Показать изображение ${index + 1}">
+            <button type="button" class="product-page_thumb${isActive}" data-thumb-index="${index}" aria-label="Показать изображение ${index + 1}">
               <img src="${src}" alt="">
             </button>
           `;
@@ -126,16 +126,16 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   if (ratingEl) {
     ratingEl.innerHTML = `
-      <div class="product-page__stars" aria-hidden="true">
+      <div class="product-page_stars" aria-hidden="true">
         ${renderStars(product.rating)}
       </div>
-      <span class="product-page__rating-text">${product.rating.toFixed(1)} из 5 звёзд</span>
+      <span class="product-page_rating-text">${product.rating.toFixed(1)} из 5 звёзд</span>
     `;
   }
 
   if (tagsEl) {
     tagsEl.innerHTML = (product.tags || [])
-      .map((tag) => `<span class="product-page__tag-chip">${tag}</span>`)
+      .map((tag) => `<span class="product-page_tag-chip">${tag}</span>`)
       .join('');
   }
 
@@ -149,13 +149,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   if (specsEl) {
     specsEl.innerHTML = (product.specs || [])
-      .map((item) => `<li class="product-page__spec-item">${item}</li>`)
+      .map((item) => `<li class="product-page_spec-item">${item}</li>`)
       .join('');
   }
 
   if (highlightsEl) {
     highlightsEl.innerHTML = (product.highlights || [])
-      .map((item) => `<li class="product-page__highlight-item">${item}</li>`)
+      .map((item) => `<li class="product-page_highlight-item">${item}</li>`)
       .join('');
   }
 
@@ -217,10 +217,10 @@ function updateCartButton(productId, button) {
   if (inCart) {
     button.textContent = 'В корзине';
     button.disabled = true;
-    button.classList.add('product-page__cart-button--in-cart');
+    button.classList.add('product-page_cart-button--in-cart');
   } else {
     button.textContent = 'В корзину';
     button.disabled = false;
-    button.classList.remove('product-page__cart-button--in-cart');
+    button.classList.remove('product-page_cart-button--in-cart');
   }
 }

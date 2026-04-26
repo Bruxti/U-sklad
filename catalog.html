@@ -21,43 +21,43 @@
 
   <main>
 <section class="catalog">
-  <div class="catalog__container">
-    <aside class="catalog__sidebar">
-      <h2 class="catalog__sidebar-title">Фильтры</h2>
+  <div class="catalog_container">
+    <aside class="catalog_sidebar">
+      <h2 class="catalog_sidebar-title">Фильтры</h2>
 
-      <div class="catalog__filters">
-        <div class="catalog__filter-group">
-          <h3 class="catalog__filter-title">Рейтинг</h3>
+      <div class="catalog_filters">
+        <div class="catalog_filter-group">
+          <h3 class="catalog_filter-title">Рейтинг</h3>
 
-          <label class="catalog__check">
+          <label class="catalog_check">
             <input type="checkbox" name="rating" value="5" />
             <span>5 звёзд</span>
           </label>
 
-          <label class="catalog__check">
+          <label class="catalog_check">
             <input type="checkbox" name="rating" value="4" />
             <span>4+ звезды</span>
           </label>
 
-          <label class="catalog__check">
+          <label class="catalog_check">
             <input type="checkbox" name="rating" value="3" />
             <span>3+ звезды</span>
           </label>
         </div>
 
-        <div class="catalog__filter-group">
-          <h3 class="catalog__filter-title">Диапазон цен</h3>
+        <div class="catalog_filter-group">
+          <h3 class="catalog_filter-title">Диапазон цен</h3>
 
-          <div class="catalog__price-row">
-            <label class="catalog__price-field">
-              <span class="catalog__price-label">От</span>
+          <div class="catalog_price-row">
+            <label class="catalog_price-field">
+              <span class="catalog_price-label">От</span>
               <input type="number" min="0" placeholder="$ 0" />
             </label>
 
-            <span class="catalog__price-separator">-</span>
+            <span class="catalog_price-separator">-</span>
 
-            <label class="catalog__price-field">
-              <span class="catalog__price-label">До</span>
+            <label class="catalog_price-field">
+              <span class="catalog_price-label">До</span>
               <input type="number" min="0" placeholder="$ 100" />
             </label>
           </div>
@@ -65,18 +65,18 @@
       </div>
     </aside>
 
-    <div class="catalog__content">
-      <div class="catalog__searchbar">
-        <label class="catalog__search">
-          <span class="catalog__search-icon">
+    <div class="catalog_content">
+      <div class="catalog_searchbar">
+        <label class="catalog_search">
+          <span class="catalog_search-icon">
             <i class="fa-solid fa-magnifying-glass"></i>
           </span>
           <input type="search" placeholder="Поиск товаров" aria-label="Поиск товаров" />
         </label>
 
-        <div class="catalog__sort">
-          <span class="catalog__sort-label">Сортировать:</span>
-<select class="catalog__select" aria-label="Сортировка товаров">
+        <div class="catalog_sort">
+          <span class="catalog_sort-label">Сортировать:</span>
+<select class="catalog_select" aria-label="Сортировка товаров">
   <option value="name-asc">Название (А-Я)</option>
   <option value="name-desc">Название (Я-А)</option>
   <option value="price-asc">Цена (сначала дешёвые)</option>
@@ -86,11 +86,11 @@
         </div>
       </div>
 
-      <div class="catalog__toolbar">
-        <p class="catalog__count">6 товаров</p>
+      <div class="catalog_toolbar">
+        <p class="catalog_count">6 товаров</p>
       </div>
 
-      <div class="catalog__grid" id="products-grid">
+      <div class="catalog_grid" id="products-grid">
       </div>
     </div>
   </div>
@@ -98,37 +98,37 @@
 
 <template id="product-card-template">
   <article class="product-card" data-product-card>
-    <a class="product-card__media-link" data-product-link href="#">
-      <div class="product-card__media">
+    <a class="product-card_media-link" data-product-link href="#">
+      <div class="product-card_media">
         <img
           src="placeholder.png"
           alt=""
-          class="product-card__image"
+          class="product-card_image"
           data-product-image
         />
-        <span class="product-card__badge" data-product-price>$54.99</span>
+        <span class="product-card_badge" data-product-price>$54.99</span>
       </div>
     </a>
 
-    <div class="product-card__body">
-      <h3 class="product-card__title">
-        <a class="product-card__title-link" data-product-link href="#" data-product-title>
+    <div class="product-card_body">
+      <h3 class="product-card_title">
+        <a class="product-card_title-link" data-product-link href="#" data-product-title>
           Переноска для животных
         </a>
       </h3>
 
-      <div class="product-card__rating" data-product-rating>
-        <div class="product-card__stars" aria-hidden="true">
+      <div class="product-card_rating" data-product-rating>
+        <div class="product-card_stars" aria-hidden="true">
           <i class="fa-solid fa-star"></i>
           <i class="fa-solid fa-star"></i>
           <i class="fa-solid fa-star"></i>
           <i class="fa-solid fa-star"></i>
           <i class="fa-regular fa-star"></i>
         </div>
-        <span class="product-card__reviews" data-product-reviews>(4.0)</span>
+        <span class="product-card_reviews" data-product-reviews>(4.0)</span>
       </div>
 
-      <button type="button" class="product-card__add" data-product-add-to-cart>
+      <button type="button" class="product-card_add" data-product-add-to-cart>
         В корзину
       </button>
     </div>
