@@ -20,6 +20,7 @@ function toProduct(raw, cartIds = []) {
     rating: Number(raw.rating ?? 0),
     tags: Array.isArray(raw.tags) ? raw.tags.map(String) : [],
     description: String(raw.description ?? ''),
+    fullDescription: String(raw.fullDescription ?? ''),
     specs: Array.isArray(raw.specs) ? raw.specs.map(String) : [],
     highlights: Array.isArray(raw.highlights) ? raw.highlights.map(String) : [],
     isInTheCart: id !== null ? cartIds.includes(id) : false

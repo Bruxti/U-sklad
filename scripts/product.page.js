@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const priceEl = document.querySelector('[data-product-price]');
   const ratingEl = document.querySelector('[data-product-rating]');
   const descriptionEl = document.querySelector('[data-product-description]');
+  const fullDescriptionEl = document.querySelector('[data-full-description]');
   const specsEl = document.querySelector('[data-product-specs]');
   const highlightsEl = document.querySelector('[data-product-highlights]');
   const tagsEl = document.querySelector('[data-product-tags]');
@@ -138,6 +139,10 @@ window.addEventListener('pawsstore:cartchange', () => {
   if (descriptionEl) {
     descriptionEl.textContent = product.description;
   }
+
+  if (fullDescriptionEl) {
+  fullDescriptionEl.textContent = product.fullDescription;
+}
 
   if (specsEl) {
     specsEl.innerHTML = (product.specs || [])
