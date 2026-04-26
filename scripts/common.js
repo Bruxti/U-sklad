@@ -210,7 +210,7 @@ function toProduct(raw, cartIds = []) {
 
   initCartBadgeSync();
 
-  window.PawsStore = {
+  window.USklad = {
     normalizeId,
     toProduct,
     getCartIds,

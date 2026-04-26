@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', async () => {
-  if (!window.PawsStore) return;
+  if (!window.USklad) return;
 
   const productId = new URLSearchParams(window.location.search).get('id');
 
@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     accordionPanel.hidden = isOpen;
   }
 
-  const product = await window.PawsStore.getProductById(productId);
+  const product = await window.USklad.getProductById(productId);
 
   if (!product) {
     if (titleEl) titleEl.textContent = 'Товар не найден';
@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (breadcrumbTitleEl) breadcrumbTitleEl.textContent = product.name;
   updateCartButton(product.id, addButton);
 
-  window.addEventListener('pawsstore:cartchange', () => {
+  window.addEventListener('USklad:cartchange', () => {
     updateCartButton(product.id, addButton);
   });
 
@@ -198,7 +198,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (addButton) {
     addButton.addEventListener('click', () => {
       for (let index = 0; index < quantity; index += 1) {
-        window.PawsStore.addToCart(product.id);
+        window.USklad.addToCart(product.id);
       }
 
       updateCartButton(product.id, addButton);
@@ -211,7 +211,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 function updateCartButton(productId, button) {
   if (!button) return;
 
-  const cartIds = window.PawsStore.getCartIds();
+  const cartIds = window.USklad.getCartIds();
   const inCart = cartIds.includes(productId);
 
   if (inCart) {

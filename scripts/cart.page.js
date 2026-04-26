@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', async () => {
-  if (!window.PawsStore) return;
+  if (!window.USklad) return;
 
   const itemsRoot = document.querySelector('[data-cart-items]');
   const emptyState = document.querySelector('[data-cart-empty]');
@@ -138,13 +138,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   function renderCart() {
-    const products = window.PawsStore.loadProducts();
+    const products = window.USklad.loadProducts();
     return products.then((loadedProducts) => {
       const validProducts = loadedProducts.filter((product) => product && product.id !== null);
 
-      window.PawsStore.clearInvalidCartIds(validProducts);
+      window.USklad.clearInvalidCartIds(validProducts);
 
-      const cartIds = window.PawsStore.getCartIds();
+      const cartIds = window.USklad.getCartIds();
       const items = groupCartItems(validProducts, cartIds);
 
       const count = getItemCount(cartIds);
@@ -184,7 +184,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     renderPromoMessage('', '');
-    window.PawsStore.saveCartIds([]);
+    window.USklad.saveCartIds([]);
     await renderCart();
   }
 
@@ -223,11 +223,11 @@ document.addEventListener('DOMContentLoaded', async () => {
       const action = button.dataset.cartAction;
 
       if (action === 'increase') {
-        window.PawsStore.addToCart(id);
+        window.USklad.addToCart(id);
       } else if (action === 'decrease') {
-        window.PawsStore.removeOneFromCart(id);
+        window.USklad.removeOneFromCart(id);
       } else if (action === 'remove') {
-        window.PawsStore.removeAllFromCart(id);
+        window.USklad.removeAllFromCart(id);
       }
 
       await renderCart();

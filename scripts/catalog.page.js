@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', async () => {
-  if (!window.PawsStore) return;
+  if (!window.USklad) return;
 
   const grid = document.getElementById('products-grid');
   const template = document.getElementById('product-card-template');
@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         event.preventDefault();
         event.stopPropagation();
 
-        window.PawsStore.addToCart(product.id);
+        window.USklad.addToCart(product.id);
         render();
       });
     }
@@ -219,14 +219,14 @@ document.addEventListener('DOMContentLoaded', async () => {
       input.addEventListener('input', render);
     });
 
-    window.addEventListener('pawsstore:cartchange', async () => {
-      state.products = await window.PawsStore.loadProducts();
+    window.addEventListener('USklad:cartchange', async () => {
+      state.products = await window.USklad.loadProducts();
       render();
     });
   }
 
   try {
-    state.products = await window.PawsStore.loadProducts();
+    state.products = await window.USklad.loadProducts();
     bindEvents();
     render();
   } catch (error) {
