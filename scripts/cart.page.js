@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const promoButton = document.querySelector('[data-promo-apply]');
   const promoMessage = document.querySelector('[data-promo-message]');
   const backButtons = document.querySelectorAll('[data-cart-back]');
+  const layout = document.querySelector('.cart-page__layout');
 
   const PROMO_CODE = 'SAVE10';
   const PROMO_DISCOUNT = 0.1;
@@ -69,6 +70,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (itemsRoot) itemsRoot.innerHTML = '';
     if (emptyState) emptyState.hidden = false;
     if (summaryPanel) summaryPanel.hidden = true;
+    layout?.classList.add('cart-page__layout--empty');
 
     if (countEl) countEl.textContent = '0 items ready for checkout';
     if (summaryCountEl) summaryCountEl.textContent = '0 items in your bag';
@@ -148,6 +150,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       if (emptyState) emptyState.hidden = true;
       if (summaryPanel) summaryPanel.hidden = false;
+      layout?.classList.remove('cart-page__layout--empty');
 
       if (itemsRoot) {
         itemsRoot.innerHTML = items.map(renderItem).join('');

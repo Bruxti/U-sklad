@@ -1710,5 +1710,19 @@
     padding: 0.5rem 0;
   }
 }
+.cart-page__layout--empty {
+  grid-template-columns: 1fr;
+  min-height: calc(100vh - 220px);
+  align-items: center;
+}
+.cart-page__layout--empty .cart-page__items-wrap {
+  grid-column: 1/-1;
+}
+.cart-page__layout--empty .cart-page__items {
+  display: none;
+}
+.cart-page__layout--empty .cart-page__empty {
+  min-height: calc(100vh - 220px);
+}
 
 /*# sourceMappingURL=styles.css.map */

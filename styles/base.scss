@@ -2081,4 +2081,22 @@ $cart-page-empty-icon-color: #ff6a00;
   .navbar__links li {
     padding: 0.5rem 0;
   }
+}.cart-page {
+  &__layout--empty {
+    grid-template-columns: 1fr;
+    min-height: calc(100vh - 220px);
+    align-items: center;
+  }
+
+  &__layout--empty .cart-page__items-wrap {
+    grid-column: 1 / -1;
+  }
+
+  &__layout--empty .cart-page__items {
+    display: none;
+  }
+
+  &__layout--empty .cart-page__empty {
+    min-height: calc(100vh - 220px);
+  }
 }
