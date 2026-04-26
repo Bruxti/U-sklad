@@ -4,9 +4,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ў складовое</title>
+  <title>Ў Складовая — Каталог</title>
 
-  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
   <link rel="stylesheet" type="text/css" href="styles.css" />
 </head>
@@ -24,41 +23,41 @@
 <section class="catalog">
   <div class="catalog__container">
     <aside class="catalog__sidebar">
-      <h2 class="catalog__sidebar-title">Filters</h2>
+      <h2 class="catalog__sidebar-title">Фильтры</h2>
 
       <div class="catalog__filters">
         <div class="catalog__filter-group">
-          <h3 class="catalog__filter-title">Rating</h3>
+          <h3 class="catalog__filter-title">Рейтинг</h3>
 
           <label class="catalog__check">
             <input type="checkbox" name="rating" value="5" />
-            <span>5 Stars</span>
+            <span>5 звёзд</span>
           </label>
 
           <label class="catalog__check">
             <input type="checkbox" name="rating" value="4" />
-            <span>4+ Stars</span>
+            <span>4+ звезды</span>
           </label>
 
           <label class="catalog__check">
             <input type="checkbox" name="rating" value="3" />
-            <span>3+ Stars</span>
+            <span>3+ звезды</span>
           </label>
         </div>
 
         <div class="catalog__filter-group">
-          <h3 class="catalog__filter-title">Price Range</h3>
+          <h3 class="catalog__filter-title">Диапазон цен</h3>
 
           <div class="catalog__price-row">
             <label class="catalog__price-field">
-              <span class="catalog__price-label">Min</span>
+              <span class="catalog__price-label">От</span>
               <input type="number" min="0" placeholder="$ 0" />
             </label>
 
             <span class="catalog__price-separator">-</span>
 
             <label class="catalog__price-field">
-              <span class="catalog__price-label">Max</span>
+              <span class="catalog__price-label">До</span>
               <input type="number" min="0" placeholder="$ 100" />
             </label>
           </div>
@@ -72,33 +71,27 @@
           <span class="catalog__search-icon">
             <i class="fa-solid fa-magnifying-glass"></i>
           </span>
-          <input type="search" placeholder="Search products" aria-label="Search products" />
+          <input type="search" placeholder="Поиск товаров" aria-label="Поиск товаров" />
         </label>
 
         <div class="catalog__sort">
-          <span class="catalog__sort-label">Sort by:</span>
-<select class="catalog__select" aria-label="Sort products">
-  <option value="name-asc">Name (A-Z)</option>
-  <option value="name-desc">Name (Z-A)</option>
-  <option value="price-asc">Price (Low to High)</option>
-  <option value="price-desc">Price (High to Low)</option>
-  <option value="rating-desc">Rating</option>
+          <span class="catalog__sort-label">Сортировать:</span>
+<select class="catalog__select" aria-label="Сортировка товаров">
+  <option value="name-asc">Название (А-Я)</option>
+  <option value="name-desc">Название (Я-А)</option>
+  <option value="price-asc">Цена (сначала дешёвые)</option>
+  <option value="price-desc">Цена (сначала дорогие)</option>
+  <option value="rating-desc">Рейтинг</option>
 </select>
         </div>
       </div>
 
       <div class="catalog__toolbar">
-        <p class="catalog__count">6 products</p>
+        <p class="catalog__count">6 товаров</p>
       </div>
 
       <div class="catalog__grid" id="products-grid">
-        <!--
-          JS later:
-          1) fetch('./data.json')
-          2) clone template below
-          3) fill title/rating/price/name
-          4) append cards here
-        -->
+        <!-- JS динамически заполняет -->
       </div>
     </div>
   </div>
@@ -121,7 +114,7 @@
     <div class="product-card__body">
       <h3 class="product-card__title">
         <a class="product-card__title-link" data-product-link href="#" data-product-title>
-          Airline-Approved Pet Travel Carrier
+          Переноска для животных
         </a>
       </h3>
 
@@ -137,7 +130,7 @@
       </div>
 
       <button type="button" class="product-card__add" data-product-add-to-cart>
-        Add to cart
+        В корзину
       </button>
     </div>
   </article>

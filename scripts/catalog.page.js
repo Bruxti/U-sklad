@@ -53,20 +53,21 @@ document.addEventListener('DOMContentLoaded', async () => {
     return Math.min(...checkedRatings);
   }
 
-function getPriceRange() {
-  const [minInput, maxInput] = priceInputs;
+  function getPriceRange() {
+    const [minInput, maxInput] = priceInputs;
 
-  const minRaw = String(minInput?.value ?? '').trim();
-  const maxRaw = String(maxInput?.value ?? '').trim();
+    const minRaw = String(minInput?.value ?? '').trim();
+    const maxRaw = String(maxInput?.value ?? '').trim();
 
-  const minPrice = minRaw === '' ? 0 : Number(minRaw);
-  const maxPrice = maxRaw === '' ? Number.POSITIVE_INFINITY : Number(maxRaw);
+    const minPrice = minRaw === '' ? 0 : Number(minRaw);
+    const maxPrice = maxRaw === '' ? Number.POSITIVE_INFINITY : Number(maxRaw);
 
-  return {
-    minPrice: Number.isFinite(minPrice) ? minPrice : 0,
-    maxPrice: Number.isFinite(maxPrice) ? maxPrice : Number.POSITIVE_INFINITY
-  };
-}
+    return {
+      minPrice: Number.isFinite(minPrice) ? minPrice : 0,
+      maxPrice: Number.isFinite(maxPrice) ? maxPrice : Number.POSITIVE_INFINITY
+    };
+  }
+
   function getSearchQuery() {
     return String(searchInput?.value ?? '').trim().toLowerCase();
   }
@@ -157,12 +158,12 @@ function getPriceRange() {
     }
 
     if (ratingBlock) {
-      ratingBlock.setAttribute('aria-label', `Rating ${product.rating} out of 5 stars`);
+      ratingBlock.setAttribute('aria-label', `Рейтинг ${product.rating} из 5 звёзд`);
     }
 
-if (addButton) {
-  addButton.textContent = 'Add to cart';
-}
+    if (addButton) {
+      addButton.textContent = 'В корзину';
+    }
 
     setLinkTargets(node, product.id);
 
@@ -183,7 +184,7 @@ if (addButton) {
     const filtered = sortProducts(filterProducts(state.products));
 
     if (countEl) {
-      countEl.textContent = `${filtered.length} product${filtered.length === 1 ? '' : 's'}`;
+      countEl.textContent = `${filtered.length} товар(ов)`;
     }
 
     grid.innerHTML = '';
@@ -191,7 +192,7 @@ if (addButton) {
     if (!filtered.length) {
       const empty = document.createElement('div');
       empty.className = 'catalog__empty';
-      empty.textContent = 'No products found.';
+      empty.textContent = 'Товары не найдены.';
       grid.appendChild(empty);
       return;
     }
@@ -230,6 +231,6 @@ if (addButton) {
     render();
   } catch (error) {
     console.error(error);
-    grid.innerHTML = '<div class="catalog__empty">Failed to load products.</div>';
+    grid.innerHTML = '<div class="catalog__empty">Не удалось загрузить товары.</div>';
   }
 });

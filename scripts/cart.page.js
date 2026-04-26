@@ -39,7 +39,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   function getItemCountText(count) {
-    return `${count} item${count === 1 ? '' : 's'} ready for checkout`;
+    return `${count} товар(ов) готово к оформлению`;
+  }
+
+  function getSummaryCountText(count) {
+    return `${count} товар(ов) в корзине`;
   }
 
   function groupCartItems(products, cartIds) {
@@ -67,14 +71,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   function renderEmpty() {
-    console.log("empty state = " + emptyState)
     if (itemsRoot) itemsRoot.innerHTML = '';
     if (emptyState) emptyState.hidden = false;
     if (summaryPanel) summaryPanel.hidden = true;
     layout?.classList.add('cart-page__layout--empty');
 
-    if (countEl) countEl.textContent = '0 items ready for checkout';
-    if (summaryCountEl) summaryCountEl.textContent = '0 items in your bag';
+    if (countEl) countEl.textContent = '0 товар(ов) готов(о) к оформлению';
+    if (summaryCountEl) summaryCountEl.textContent = '0 товар(ов) в корзине';
     if (subtotalEl) subtotalEl.textContent = formatMoney(0);
     if (discountEl) discountEl.textContent = formatMoney(0);
     if (totalEl) totalEl.textContent = formatMoney(0);
@@ -98,41 +101,41 @@ document.addEventListener('DOMContentLoaded', async () => {
     return stars.join('');
   }
 
-function renderItem(item) {
-  const productUrl = `product.html?id=${encodeURIComponent(item.id)}`;
+  function renderItem(item) {
+    const productUrl = `product.html?id=${encodeURIComponent(item.id)}`;
 
-  return `
-    <article class="cart-item" data-product-id="${item.id}">
-      <a class="cart-item__link" href="${productUrl}" aria-label="Открыть товар ${item.name}">
-        <img class="cart-item__image" src="${item.thumbnail}" alt="${item.name}">
-        <div class="cart-item__content">
-          <h3 class="cart-item__title">${item.name}</h3>
-          <p class="cart-item__subtitle">${item.tag}</p>
-          <div class="cart-item__meta">
-            <div class="cart-item__rating" aria-label="Rating ${item.quantity}">
-              <span class="cart-item__stars">${renderStars(4)}</span>
+    return `
+      <article class="cart-item" data-product-id="${item.id}">
+        <a class="cart-item__link" href="${productUrl}" aria-label="Открыть товар ${item.name}">
+          <img class="cart-item__image" src="${item.thumbnail}" alt="${item.name}">
+          <div class="cart-item__content">
+            <h3 class="cart-item__title">${item.name}</h3>
+            <p class="cart-item__subtitle">${item.tag}</p>
+            <div class="cart-item__meta">
+              <div class="cart-item__rating" aria-label="Рейтинг ${item.quantity}">
+                <span class="cart-item__stars">${renderStars(4)}</span>
+              </div>
+              <p class="cart-item__unit-price">${formatMoney(item.price)} за шт.</p>
             </div>
-            <p class="cart-item__unit-price">${formatMoney(item.price)} each</p>
           </div>
+        </a>
+
+        <div class="cart-item__actions">
+          <div class="cart-item__qty">
+            <button type="button" class="cart-item__qty-btn" data-cart-action="decrease" aria-label="Уменьшить количество">−</button>
+            <span class="cart-item__qty-value">${item.quantity}</span>
+            <button type="button" class="cart-item__qty-btn" data-cart-action="increase" aria-label="Увеличить количество">+</button>
+          </div>
+
+          <div class="cart-item__price">${formatMoney(item.lineTotal)}</div>
+
+          <button type="button" class="cart-item__remove" data-cart-action="remove" aria-label="Удалить товар">
+            <i class="fa-regular fa-trash-can"></i>
+          </button>
         </div>
-      </a>
-
-      <div class="cart-item__actions">
-        <div class="cart-item__qty">
-          <button type="button" class="cart-item__qty-btn" data-cart-action="decrease" aria-label="Decrease quantity">−</button>
-          <span class="cart-item__qty-value">${item.quantity}</span>
-          <button type="button" class="cart-item__qty-btn" data-cart-action="increase" aria-label="Increase quantity">+</button>
-        </div>
-
-        <div class="cart-item__price">${formatMoney(item.lineTotal)}</div>
-
-        <button type="button" class="cart-item__remove" data-cart-action="remove" aria-label="Remove item">
-          <i class="fa-regular fa-trash-can"></i>
-        </button>
-      </div>
-    </article>
-  `;
-}
+      </article>
+    `;
+  }
 
   function renderCart() {
     const products = window.PawsStore.loadProducts();
@@ -147,7 +150,7 @@ function renderItem(item) {
       const count = getItemCount(cartIds);
 
       if (countEl) countEl.textContent = getItemCountText(count);
-      if (summaryCountEl) summaryCountEl.textContent = `${count} item${count === 1 ? '' : 's'} in your bag`;
+      if (summaryCountEl) summaryCountEl.textContent = getSummaryCountText(count);
       if (cartIds.length === 0) {
         renderEmpty();
         return;
@@ -172,28 +175,28 @@ function renderItem(item) {
   }
 
   async function handleCheckout() {
-  alert('Спасибо за покупку!');
+    alert('Спасибо за покупку!');
 
-  promoApplied = false;
+    promoApplied = false;
 
-  if (promoInput) {
-    promoInput.value = '';
+    if (promoInput) {
+      promoInput.value = '';
+    }
+
+    renderPromoMessage('', '');
+    window.PawsStore.saveCartIds([]);
+    await renderCart();
   }
 
-  renderPromoMessage('', '');
-  window.PawsStore.saveCartIds([]);
-  await renderCart();
-}
-
-if (checkoutButton) {
-  checkoutButton.addEventListener('click', handleCheckout);
-}
+  if (checkoutButton) {
+    checkoutButton.addEventListener('click', handleCheckout);
+  }
 
   async function applyPromo() {
     const code = promoInput ? promoInput.value.trim().toUpperCase() : '';
 
     if (!code) {
-      renderPromoMessage('Enter a promo code', 'error');
+      renderPromoMessage('Введите промокод', 'error');
       return;
     }
 
@@ -205,7 +208,7 @@ if (checkoutButton) {
     }
 
     promoApplied = true;
-    renderPromoMessage('Promo code applied', 'success');
+    renderPromoMessage('Промокод применён', 'success');
     await renderCart();
   }
 

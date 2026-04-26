@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>PawsStore — Cart</title>
+  <title>Ў Складовая — Корзина</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
   <link rel="stylesheet" type="text/css" href="styles.css" />
@@ -15,19 +15,19 @@
     <div class="cart-page__container">
       <div class="cart-page__header">
         <div>
-          <h1 class="cart-page__title">Shopping Bag</h1>
-          <p class="cart-page__subtitle" data-cart-count>1 item ready for checkout</p>
+          <h1 class="cart-page__title">Корзина</h1>
+          <p class="cart-page__subtitle" data-cart-count>1 товар готов к оформлению</p>
         </div>
 
-        <div class="cart-page__steps" aria-label="Checkout steps">
+        <div class="cart-page__steps" aria-label="Этапы оформления">
           <span class="cart-page__step cart-page__step--active">1</span>
-          <span class="cart-page__step-label">Cart</span>
+          <span class="cart-page__step-label">Корзина</span>
           <span class="cart-page__step-separator">›</span>
           <span class="cart-page__step">2</span>
-          <span class="cart-page__step-label">Checkout</span>
+          <span class="cart-page__step-label">Оформление</span>
           <span class="cart-page__step-separator">›</span>
           <span class="cart-page__step">3</span>
-          <span class="cart-page__step-label">Complete</span>
+          <span class="cart-page__step-label">Готово</span>
         </div>
       </div>
 
@@ -40,13 +40,13 @@
               <i class="fa-solid fa-bag-shopping"></i>
             </div>
 
-            <h2 class="cart-page__empty-title">Your cart is empty</h2>
+            <h2 class="cart-page__empty-title">Ваша корзина пуста</h2>
             <p class="cart-page__empty-text">
-              Discover amazing products for your furry friends!
+              Откройте для себя удивительные товары для вашего дома!
             </p>
 
             <button type="button" class="cart-page__empty-button" data-cart-back>
-              Return to catalog
+              Вернуться в каталог
               <i class="fa-solid fa-arrow-right"></i>
             </button>
           </div>
@@ -55,14 +55,14 @@
         <aside class="cart-page__summary" data-cart-summary>
           <div class="cart-summary">
             <div class="cart-summary__header">
-              <h2 class="cart-summary__title">Order Summary</h2>
-              <p class="cart-summary__subtitle" data-cart-summary-count>1 item in your bag</p>
+              <h2 class="cart-summary__title">Сводка заказа</h2>
+              <p class="cart-summary__subtitle" data-cart-summary-count>1 товар в корзине</p>
             </div>
 
             <div class="cart-summary__promo">
               <label class="cart-summary__label" for="promo-code">
                 <i class="fa-regular fa-ticket"></i>
-                Promo Code
+                Промокод
               </label>
 
               <div class="cart-summary__promo-row">
@@ -70,10 +70,10 @@
                   id="promo-code"
                   type="text"
                   class="cart-summary__input"
-                  placeholder="Enter code"
+                  placeholder="Введите код"
                   data-promo-input
                 >
-                <button type="button" class="cart-summary__button" data-promo-apply>Apply</button>
+                <button type="button" class="cart-summary__button" data-promo-apply>Применить</button>
               </div>
 
               <p class="cart-summary__message" data-promo-message></p>
@@ -81,27 +81,27 @@
 
             <dl class="cart-summary__totals">
               <div class="cart-summary__row">
-                <dt>Subtotal</dt>
+                <dt>Подытог</dt>
                 <dd data-cart-subtotal>$0.00</dd>
               </div>
               <div class="cart-summary__row">
-                <dt>Discount</dt>
+                <dt>Скидка</dt>
                 <dd data-cart-discount>$0.00</dd>
               </div>
               <div class="cart-summary__row cart-summary__row--total">
-                <dt>Total</dt>
+                <dt>Итого</dt>
                 <dd data-cart-total>$0.00</dd>
               </div>
             </dl>
 
             <button type="button" class="cart-summary__checkout" data-cart-checkout>
               <i class="fa-solid fa-lock"></i>
-              Proceed to Checkout
+              Перейти к оформлению
             </button>
 
             <button type="button" class="cart-summary__back" data-cart-back>
               <i class="fa-solid fa-arrow-left"></i>
-              Continue Shopping
+              Продолжить покупки
             </button>
           </div>
         </aside>

@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const productId = new URLSearchParams(window.location.search).get('id');
 
   const titleEl = document.querySelector('[data-product-title]');
+  const breadcrumbTitleEl = document.querySelector('[data-product-title-breadcrumb]');
   const imageEl = document.querySelector('[data-product-image]');
   const priceEl = document.querySelector('[data-product-price]');
   const ratingEl = document.querySelector('[data-product-rating]');
@@ -74,7 +75,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         .map((src, index) => {
           const isActive = index === safeIndex ? ' product-page__thumb--active' : '';
           return `
-            <button type="button" class="product-page__thumb${isActive}" data-thumb-index="${index}" aria-label="Show image ${index + 1}">
+            <button type="button" class="product-page__thumb${isActive}" data-thumb-index="${index}" aria-label="Показать изображение ${index + 1}">
               <img src="${src}" alt="">
             </button>
           `;
@@ -98,22 +99,24 @@ document.addEventListener('DOMContentLoaded', async () => {
     accordionPanel.hidden = isOpen;
   }
 
-const product = await window.PawsStore.getProductById(productId);
+  const product = await window.PawsStore.getProductById(productId);
 
-if (!product) {
-  if (titleEl) titleEl.textContent = 'Product not found';
-  if (descriptionEl) descriptionEl.textContent = 'The requested product is unavailable.';
-  if (priceEl) priceEl.textContent = '';
-  if (ratingEl) ratingEl.innerHTML = '';
-  if (addButton) addButton.disabled = true;
-  return;
-}
+  if (!product) {
+    if (titleEl) titleEl.textContent = 'Товар не найден';
+    if (breadcrumbTitleEl) breadcrumbTitleEl.textContent = 'Товар не найден';
+    if (descriptionEl) descriptionEl.textContent = 'Запрошенный товар недоступен.';
+    if (priceEl) priceEl.textContent = '';
+    if (ratingEl) ratingEl.innerHTML = '';
+    if (addButton) addButton.disabled = true;
+    return;
+  }
 
+  if (breadcrumbTitleEl) breadcrumbTitleEl.textContent = product.name;
   updateCartButton(product.id, addButton);
 
-window.addEventListener('pawsstore:cartchange', () => {
-  updateCartButton(product.id, addButton);
-});
+  window.addEventListener('pawsstore:cartchange', () => {
+    updateCartButton(product.id, addButton);
+  });
 
   if (titleEl) titleEl.textContent = product.name;
 
@@ -126,7 +129,7 @@ window.addEventListener('pawsstore:cartchange', () => {
       <div class="product-page__stars" aria-hidden="true">
         ${renderStars(product.rating)}
       </div>
-      <span class="product-page__rating-text">${product.rating.toFixed(1)} out of 5 stars</span>
+      <span class="product-page__rating-text">${product.rating.toFixed(1)} из 5 звёзд</span>
     `;
   }
 
@@ -141,8 +144,8 @@ window.addEventListener('pawsstore:cartchange', () => {
   }
 
   if (fullDescriptionEl) {
-  fullDescriptionEl.textContent = product.fullDescription;
-}
+    fullDescriptionEl.textContent = product.fullDescription;
+  }
 
   if (specsEl) {
     specsEl.innerHTML = (product.specs || [])
@@ -192,18 +195,19 @@ window.addEventListener('pawsstore:cartchange', () => {
     accordionToggle.addEventListener('click', toggleAccordion);
   }
 
-if (addButton) {
-  addButton.addEventListener('click', () => {
-    for (let index = 0; index < quantity; index += 1) {
-      window.PawsStore.addToCart(product.id);
-    }
+  if (addButton) {
+    addButton.addEventListener('click', () => {
+      for (let index = 0; index < quantity; index += 1) {
+        window.PawsStore.addToCart(product.id);
+      }
 
-    updateCartButton(product.id, addButton);
-  });
-}
+      updateCartButton(product.id, addButton);
+    });
+  }
 
   renderQuantity();
 });
+
 function updateCartButton(productId, button) {
   if (!button) return;
 
@@ -211,11 +215,11 @@ function updateCartButton(productId, button) {
   const inCart = cartIds.includes(productId);
 
   if (inCart) {
-    button.textContent = 'In cart';
+    button.textContent = 'В корзине';
     button.disabled = true;
     button.classList.add('product-page__cart-button--in-cart');
   } else {
-    button.textContent = 'Add to cart';
+    button.textContent = 'В корзину';
     button.disabled = false;
     button.classList.remove('product-page__cart-button--in-cart');
   }

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>PawsStore — Product</title>
+  <title>Ў Складовая — Товар</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
   <link rel="stylesheet" type="text/css" href="styles.css" />
@@ -14,12 +14,12 @@
 
   <main class="product-page">
     <div class="product-page__container">
-      <nav class="product-page__breadcrumbs" aria-label="Breadcrumb">
-        <a href="#">Home</a>
+      <nav class="product-page__breadcrumbs" aria-label="Хлебные крошки">
+        <a href="catalog.html">Главная</a>
         <span>/</span>
-        <a href="#">Travel &amp; Carriers</a>
+        <a href="catalog.html">Каталог</a>
         <span>/</span>
-        <span class="product-page__breadcrumbs-current">Airline-Approved Pet Travel Carrier</span>
+        <span class="product-page__breadcrumbs-current" data-product-title-breadcrumb>Товар</span>
       </nav>
 
       <section class="product-page__layout">
@@ -29,7 +29,7 @@
               type="button"
               class="product-page__slider-btn product-page__slider-btn--prev"
               data-slider-prev
-              aria-label="Previous image">
+              aria-label="Предыдущее изображение">
               <i class="fa-solid fa-chevron-left"></i>
             </button>
 
@@ -45,7 +45,7 @@
               type="button"
               class="product-page__slider-btn product-page__slider-btn--next"
               data-slider-next
-              aria-label="Next image">
+              aria-label="Следующее изображение">
               <i class="fa-solid fa-chevron-right"></i>
             </button>
           </div>
@@ -57,7 +57,7 @@
           <div class="product-page__tags" data-product-tags></div>
 
           <h1 class="product-page__title" data-product-title>
-            Airline-Approved Pet Travel Carrier
+            Переноска для животных
           </h1>
 
           <div class="product-page__rating" data-product-rating>
@@ -68,20 +68,20 @@
               <i class="fa-solid fa-star"></i>
               <i class="fa-regular fa-star"></i>
             </div>
-            <span class="product-page__rating-text">4 out of 5 stars</span>
+            <span class="product-page__rating-text">4 из 5 звёзд</span>
           </div>
 
           <div class="product-page__price" data-product-price>$54.99</div>
 
           <section class="product-page__panel product-page__panel--highlights">
-            <h2 class="product-page__panel-title">Key Highlights</h2>
+            <h2 class="product-page__panel-title">Основные преимущества</h2>
             <ul class="product-page__list product-page__list--highlights" data-product-highlights></ul>
           </section>
 
           <section class="product-page__section">
-            <h2 class="product-page__section-title">Description</h2>
+            <h2 class="product-page__section-title">Описание</h2>
             <p class="product-page__description" data-product-description>
-              Soft-sided pet carrier approved for airline cabin use.
+              Мягкая переноска для домашних животных, одобренная для использования в салоне самолёта.
             </p>
           </section>
 
@@ -109,16 +109,16 @@
 
           <div class="product-page__purchase">
             <div class="product-page__quantity">
-              <span class="product-page__quantity-label">Quantity:</span>
+              <span class="product-page__quantity-label">Количество:</span>
 
-              <div class="product-page__stepper" aria-label="Quantity selector">
-                <button type="button" class="product-page__stepper-btn" data-quantity-minus aria-label="Decrease quantity">
+              <div class="product-page__stepper" aria-label="Выбор количества">
+                <button type="button" class="product-page__stepper-btn" data-quantity-minus aria-label="Уменьшить количество">
                   <i class="fa-solid fa-minus"></i>
                 </button>
 
                 <span class="product-page__stepper-value" data-quantity-value>1</span>
 
-                <button type="button" class="product-page__stepper-btn" data-quantity-plus aria-label="Increase quantity">
+                <button type="button" class="product-page__stepper-btn" data-quantity-plus aria-label="Увеличить количество">
                   <i class="fa-solid fa-plus"></i>
                 </button>
               </div>
@@ -126,7 +126,7 @@
 
             <button type="button" class="product-page__cart-button" data-product-add-to-cart>
               <i class="fa-solid fa-cart-shopping"></i>
-              <span>Add to Cart</span>
+              <span>В корзину</span>
             </button>
           </div>
 
@@ -135,7 +135,7 @@
               <span class="product-page__panel-icon">
                 <i class="fa-solid fa-box"></i>
               </span>
-              Technical Specifications
+              Технические характеристики
             </h2>
 
             <ul class="product-page__spec-grid" data-product-specs></ul>
