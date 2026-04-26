@@ -1,7 +1,7 @@
 (() => {
-  const PRODUCTS_URL = './data.json';
-  const CART_STORAGE_KEY = 'pawsstore_cart_ids';
-  const CART_CHANGE_EVENT = 'pawsstore:cartchange';
+  const PRODUCTS_URL = './data/data.json';
+  const CART_STORAGE_KEY = 'USklad_cart_ids';
+  const CART_CHANGE_EVENT = 'USklad:cartchange';
 
   function normalizeId(value) {
     const id = Number(value);
@@ -125,7 +125,7 @@ function toProduct(raw, cartIds = []) {
     const response = await fetch(PRODUCTS_URL);
 
     if (!response.ok) {
-      throw new Error(`Failed to load data.json: ${response.status}`);
+      throw new Error(`Failed to load data/data.json: ${response.status}`);
     }
 
     const rawProducts = await response.json();
