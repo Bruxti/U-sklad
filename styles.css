@@ -1683,4 +1683,32 @@
   background: #fff;
 }
 
+@media (max-width: 768px) {
+  .site-header {
+    position: relative;
+  }
+  .navbar {
+    position: relative;
+  }
+  .navbar__links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    gap: 0;
+    padding: 1rem;
+    background: #fff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    z-index: 20;
+  }
+  .site-header--menu-open .navbar__links {
+    display: flex;
+  }
+  .navbar__links li {
+    padding: 0.5rem 0;
+  }
+}
+
 /*# sourceMappingURL=styles.css.map */

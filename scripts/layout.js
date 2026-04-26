@@ -26,3 +26,18 @@ async function loadComponent(targetId, url) {
     console.error(error);
   }
 }
+document.addEventListener('DOMContentLoaded', async () => {
+  await Promise.all([
+    loadComponent('header', 'components/header.html'),
+    loadComponent('footer', 'components/footer.html')
+  ]);
+
+  const header = document.querySelector('.site-header');
+  const toggle = header?.querySelector('.navbar__menu-toggle');
+
+  toggle?.addEventListener('click', () => {
+    header.classList.toggle('site-header--menu-open');
+  });
+
+  if (window.PawsStore) window.PawsStore.updateCartBadges();
+});
