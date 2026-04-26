@@ -97,15 +97,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     accordionPanel.hidden = isOpen;
   }
 
-  const product = await window.PawsStore.getProductById(productId);
-  updateCartButton(product.id, addButton);
+const product = await window.PawsStore.getProductById(productId);
 
-  if (!product) {
-    if (titleEl) titleEl.textContent = 'Product not found';
-    if (descriptionEl) descriptionEl.textContent = 'The requested product is unavailable.';
-    if (addButton) addButton.disabled = true;
-    return;
-  }
+if (!product) {
+  if (titleEl) titleEl.textContent = 'Product not found';
+  if (descriptionEl) descriptionEl.textContent = 'The requested product is unavailable.';
+  if (priceEl) priceEl.textContent = '';
+  if (ratingEl) ratingEl.innerHTML = '';
+  if (addButton) addButton.disabled = true;
+  return;
+}
 
   updateCartButton(product.id, addButton);
 

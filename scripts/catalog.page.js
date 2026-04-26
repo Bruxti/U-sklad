@@ -53,17 +53,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     return Math.min(...checkedRatings);
   }
 
-  function getPriceRange() {
-    const [minInput, maxInput] = priceInputs;
-    const minValue = Number(minInput?.value);
-    const maxValue = Number(maxInput?.value);
+function getPriceRange() {
+  const [minInput, maxInput] = priceInputs;
 
-    return {
-      minPrice: Number.isFinite(minValue) ? minValue : 0,
-      maxPrice: Number.isFinite(maxValue) ? maxValue : Number.POSITIVE_INFINITY
-    };
-  }
+  const minRaw = String(minInput?.value ?? '').trim();
+  const maxRaw = String(maxInput?.value ?? '').trim();
 
+  const minPrice = minRaw === '' ? 0 : Number(minRaw);
+  const maxPrice = maxRaw === '' ? Number.POSITIVE_INFINITY : Number(maxRaw);
+
+  return {
+    minPrice: Number.isFinite(minPrice) ? minPrice : 0,
+    maxPrice: Number.isFinite(maxPrice) ? maxPrice : Number.POSITIVE_INFINITY
+  };
+}
   function getSearchQuery() {
     return String(searchInput?.value ?? '').trim().toLowerCase();
   }

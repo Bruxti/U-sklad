@@ -538,6 +538,8 @@ $catalog-radius: 10px;
 
   &__price-field {
     flex: 1 1 0;
+    width: 100%;
+    min-width: 0;
     display: grid;
     gap: 0.35rem;
   }
@@ -550,6 +552,8 @@ $catalog-radius: 10px;
   &__price-field input {
     height: 38px;
     width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
     padding: 0 0.8rem;
     border: 1px solid $catalog-line;
     border-radius: 8px;
@@ -2017,4 +2021,33 @@ $cart-page-empty-icon-color: #ff6a00;
 
 .cart-page__empty[hidden] {
     display: none;
+}
+.product-page__accordion {
+  margin-top: 1.5rem;
+}
+
+.product-page__accordion-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.2rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  }
+}
+
+.product-page__accordion-panel {
+  padding: 1rem 1.2rem;
+  border: 1px solid #e5e7eb;
+  border-top: none;
+  border-radius: 0 0 12px 12px;
+  background: #fff;
 }
