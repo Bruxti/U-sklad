@@ -2,7 +2,7 @@ html, body {
   width: 100%;
   margin: 0;
   padding: 0;
-  background-color: #f9fafb;
+  background-color: #ffffff;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
   color: #111827;
 }
@@ -58,7 +58,7 @@ html, body {
   transition: all 0.2s ease;
 }
 .navbar_icon:hover {
-  background-color: #f3f4f6;
+  background-color: #ffffff;
   color: #f97316;
 }
 .navbar_cart {
@@ -283,7 +283,7 @@ html, body {
   position: relative;
   aspect-ratio: 4/5;
   overflow: hidden;
-  background-color: #f3f4f6;
+  background-color: #ffffff;
 }
 .product-card_image {
   width: 100%;
@@ -363,7 +363,7 @@ html, body {
 }
 
 .catalog {
-  background-color: #f9fafb;
+  background-color: #ffffff;
 }
 .catalog_container {
   max-width: 1280px;
@@ -545,7 +545,7 @@ html, body {
   }
 }
 .product-page {
-  background: #f9fafb;
+  background: #ffffff;
 }
 .product-page_container {
   max-width: 1280px;
@@ -592,7 +592,7 @@ html, body {
   transition: all 0.2s ease;
 }
 .product-page_slider-btn:hover {
-  background: #f3f4f6;
+  background: #ffffff;
   color: #f97316;
 }
 .product-page_image-frame {
@@ -667,7 +667,7 @@ html, body {
   margin: 0.5rem 0;
 }
 .product-page_panel {
-  background: #fff7ed;
+  background: #ffffff;
   border: 1px solid #ffedd5;
   border-radius: 0.5rem;
   padding: 1rem;
@@ -722,7 +722,7 @@ html, body {
   cursor: pointer;
 }
 .product-page_stepper-btn:hover {
-  background: #f3f4f6;
+  background: #ffffff;
   color: #f97316;
 }
 .product-page_stepper-value {
@@ -774,12 +774,12 @@ html, body {
   cursor: pointer;
 }
 .product-page_accordion-toggle:hover {
-  background: #f9fafb;
+  background: #ffffff;
 }
 .product-page_accordion-panel {
   padding: 1rem;
   border-top: 1px solid #e5e7eb;
-  background: #f9fafb;
+  background: #ffffff;
 }
 
 @media (max-width: 768px) {
@@ -791,7 +791,7 @@ html, body {
   }
 }
 .cart-page {
-  background: #f9fafb;
+  background: #ffffff;
 }
 .cart-page_container {
   max-width: 1280px;
@@ -906,7 +906,7 @@ html, body {
   height: 5rem;
   object-fit: cover;
   border-radius: 0.5rem;
-  background: #f3f4f6;
+  background: #ffffff;
 }
 .cart-item_content {
   flex: 1;
@@ -952,7 +952,7 @@ html, body {
   cursor: pointer;
 }
 .cart-item_qty-btn:hover {
-  background: #f3f4f6;
+  background: #ffffff;
 }
 .cart-item_qty-value {
   width: 2rem;
@@ -1036,7 +1036,7 @@ html, body {
   transition: all 0.2s ease;
 }
 .cart-summary_button:hover {
-  background: #1f2937;
+  background: gray;
 }
 .cart-summary_totals {
   padding: 1rem;
