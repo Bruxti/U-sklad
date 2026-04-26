@@ -30,6 +30,12 @@ $catalog-radius: 10px;
 
 // sass styles/base.scss styles.css
 
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
 // Сброс базовых отступов для ul, button (но можно вынести глобально)
 .navbar {
   display: flex;
