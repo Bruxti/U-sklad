@@ -1732,4 +1732,28 @@ body {
   min-height: calc(100vh - 220px);
 }
 
+.cart-item {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.cart-item__link {
+  display: flex;
+  gap: 1rem;
+  flex: 1 1 auto;
+  min-width: 0;
+  color: inherit;
+  text-decoration: none;
+}
+
+.cart-item__link:hover .cart-item__title {
+  color: #e67e22;
+}
+
+.cart-item__image {
+  flex: 0 0 auto;
+  display: block;
+}
+
 /*# sourceMappingURL=styles.css.map */

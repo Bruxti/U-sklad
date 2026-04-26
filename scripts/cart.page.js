@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const promoMessage = document.querySelector('[data-promo-message]');
   const backButtons = document.querySelectorAll('[data-cart-back]');
   const layout = document.querySelector('.cart-page__layout');
+  const checkoutButton = document.querySelector('[data-cart-checkout]');
 
   const PROMO_CODE = 'SAVE10';
   const PROMO_DISCOUNT = 0.1;
@@ -97,9 +98,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     return stars.join('');
   }
 
-  function renderItem(item) {
-    return `
-      <article class="cart-item" data-product-id="${item.id}">
+function renderItem(item) {
+  const productUrl = `product.html?id=${encodeURIComponent(item.id)}`;
+
+  return `
+    <article class="cart-item" data-product-id="${item.id}">
+      <a class="cart-item__link" href="${productUrl}" aria-label="Открыть товар ${item.name}">
         <img class="cart-item__image" src="${item.thumbnail}" alt="${item.name}">
         <div class="cart-item__content">
           <h3 class="cart-item__title">${item.name}</h3>
@@ -111,23 +115,24 @@ document.addEventListener('DOMContentLoaded', async () => {
             <p class="cart-item__unit-price">${formatMoney(item.price)} each</p>
           </div>
         </div>
+      </a>
 
-        <div class="cart-item__actions">
-          <div class="cart-item__qty">
-            <button type="button" class="cart-item__qty-btn" data-cart-action="decrease" aria-label="Decrease quantity">−</button>
-            <span class="cart-item__qty-value">${item.quantity}</span>
-            <button type="button" class="cart-item__qty-btn" data-cart-action="increase" aria-label="Increase quantity">+</button>
-          </div>
-
-          <div class="cart-item__price">${formatMoney(item.lineTotal)}</div>
-
-          <button type="button" class="cart-item__remove" data-cart-action="remove" aria-label="Remove item">
-            <i class="fa-regular fa-trash-can"></i>
-          </button>
+      <div class="cart-item__actions">
+        <div class="cart-item__qty">
+          <button type="button" class="cart-item__qty-btn" data-cart-action="decrease" aria-label="Decrease quantity">−</button>
+          <span class="cart-item__qty-value">${item.quantity}</span>
+          <button type="button" class="cart-item__qty-btn" data-cart-action="increase" aria-label="Increase quantity">+</button>
         </div>
-      </article>
-    `;
-  }
+
+        <div class="cart-item__price">${formatMoney(item.lineTotal)}</div>
+
+        <button type="button" class="cart-item__remove" data-cart-action="remove" aria-label="Remove item">
+          <i class="fa-regular fa-trash-can"></i>
+        </button>
+      </div>
+    </article>
+  `;
+}
 
   function renderCart() {
     const products = window.PawsStore.loadProducts();
@@ -165,6 +170,24 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (totalEl) totalEl.textContent = formatMoney(total);
     });
   }
+
+  async function handleCheckout() {
+  alert('Спасибо за покупку!');
+
+  promoApplied = false;
+
+  if (promoInput) {
+    promoInput.value = '';
+  }
+
+  renderPromoMessage('', '');
+  window.PawsStore.saveCartIds([]);
+  await renderCart();
+}
+
+if (checkoutButton) {
+  checkoutButton.addEventListener('click', handleCheckout);
+}
 
   async function applyPromo() {
     const code = promoInput ? promoInput.value.trim().toUpperCase() : '';
