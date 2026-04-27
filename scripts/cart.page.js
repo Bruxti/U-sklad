@@ -249,7 +249,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   backButtons.forEach((button) => {
     button.addEventListener('click', () => {
-      window.location.href = button.dataset.href || 'catalog.html';
+      window.location.href = button.dataset.href || 'index.html';
     });
   });
 
