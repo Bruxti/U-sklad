@@ -11,13 +11,13 @@ import authPlugin from './plugins/auth.js'
 import errorHandlerPlugin from './plugins/error-handler.js'
 
 import { authRoutes } from './modules/auth/routes.js'
+import { productsRoutes } from './modules/products/routes.js'
 
 export async function buildApp() {
   const app = Fastify({
     logger: { level: env.NODE_ENV === 'development' ? 'info' : 'warn' },
   })
 
-  // Zod как валидатор/сериализатор для body/response и источник Swagger-схем
   app.setValidatorCompiler(validatorCompiler)
   app.setSerializerCompiler(serializerCompiler)
 
@@ -35,6 +35,7 @@ export async function buildApp() {
   }))
 
   await app.register(authRoutes, { prefix: '/api/auth' })
+  await app.register(productsRoutes, { prefix: '/api/products' })
 
   return app
 }
