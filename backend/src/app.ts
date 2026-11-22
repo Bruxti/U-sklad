@@ -12,6 +12,7 @@ import errorHandlerPlugin from './plugins/error-handler.js'
 
 import { authRoutes } from './modules/auth/routes.js'
 import { productsRoutes } from './modules/products/routes.js'
+import { cartRoutes } from './modules/cart/routes.js'
 
 export async function buildApp() {
   const app = Fastify({
@@ -36,6 +37,7 @@ export async function buildApp() {
 
   await app.register(authRoutes, { prefix: '/api/auth' })
   await app.register(productsRoutes, { prefix: '/api/products' })
+  await app.register(cartRoutes, { prefix: '/api/cart' })
 
   return app
 }
