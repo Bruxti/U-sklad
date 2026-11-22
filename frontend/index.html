@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ў Складовая — Каталог</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+  <link rel="stylesheet" type="text/css" href="styles.css" />
+</head>
+
+<body>
+  <div id="header"></div>
+<div class="ad">
+  <div class="ad_textbox">
+    <p class="ad_headtext">Здесь могла быть Ваша реклама</p>
+    <p class="ad_text">Но ее не будет</p>
+  </div>
+</div>
+
+  <main>
+<section class="catalog">
+  <div class="catalog_container">
+    <aside class="catalog_sidebar">
+      <h2 class="catalog_sidebar-title">Фильтры</h2>
+
+      <div class="catalog_filters">
+        <div class="catalog_filter-group">
+          <h3 class="catalog_filter-title">Рейтинг</h3>
+
+          <label class="catalog_check">
+            <input type="checkbox" name="rating" value="5" />
+            <span>5 звёзд</span>
+          </label>
+
+          <label class="catalog_check">
+            <input type="checkbox" name="rating" value="4" />
+            <span>4+ звезды</span>
+          </label>
+
+          <label class="catalog_check">
+            <input type="checkbox" name="rating" value="3" />
+            <span>3+ звезды</span>
+          </label>
+        </div>
+
+        <div class="catalog_filter-group">
+          <h3 class="catalog_filter-title">Диапазон цен</h3>
+
+          <div class="catalog_price-row">
+            <label class="catalog_price-field">
+              <span class="catalog_price-label">От</span>
+              <input type="number" min="0" placeholder="$ 0" />
+            </label>
+
+            <span class="catalog_price-separator">-</span>
+
+            <label class="catalog_price-field">
+              <span class="catalog_price-label">До</span>
+              <input type="number" min="0" placeholder="$ 100" />
+            </label>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <div class="catalog_content">
+      <div class="catalog_searchbar">
+        <label class="catalog_search">
+          <span class="catalog_search-icon">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </span>
+          <input type="search" placeholder="Поиск товаров" aria-label="Поиск товаров" />
+        </label>
+
+        <div class="catalog_sort">
+          <span class="catalog_sort-label">Сортировать:</span>
+<select class="catalog_select" aria-label="Сортировка товаров">
+  <option value="name-asc">Название (А-Я)</option>
+  <option value="name-desc">Название (Я-А)</option>
+  <option value="price-asc">Цена (сначала дешёвые)</option>
+  <option value="price-desc">Цена (сначала дорогие)</option>
+  <option value="rating-desc">Рейтинг</option>
+</select>
+        </div>
+      </div>
+
+      <div class="catalog_toolbar">
+        <p class="catalog_count">6 товаров</p>
+      </div>
+
+      <div class="catalog_grid" id="products-grid">
+      </div>
+    </div>
+  </div>
+</section>
+
+<template id="product-card-template">
+  <article class="product-card" data-product-card>
+    <a class="product-card_media-link" data-product-link href="#">
+      <div class="product-card_media">
+        <img
+          src="placeholder.png"
+          alt=""
+          class="product-card_image"
+          data-product-image
+        />
+        <span class="product-card_badge" data-product-price>$54.99</span>
+      </div>
+    </a>
+
+    <div class="product-card_body">
+      <h3 class="product-card_title">
+        <a class="product-card_title-link" data-product-link href="#" data-product-title>
+          Переноска для животных
+        </a>
+      </h3>
+
+      <div class="product-card_rating" data-product-rating>
+        <div class="product-card_stars" aria-hidden="true">
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-regular fa-star"></i>
+        </div>
+        <span class="product-card_reviews" data-product-reviews>(4.0)</span>
+      </div>
+
+      <button type="button" class="product-card_add" data-product-add-to-cart>
+        В корзину
+      </button>
+    </div>
+  </article>
+</template>
+    
+  </main>
+
+<div id="footer"></div>
+<script src="scripts/common.js" defer></script>
+<script src="scripts/layout.js" defer></script>
+<script src="scripts/catalog.page.js" defer></script>
+</body>
+</html>

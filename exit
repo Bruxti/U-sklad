@@ -1,0 +1,487 @@
+[1mdiff --git a/.gitignore b/.gitignore[m
+[1mindex c0618eb..5ebc07b 100644[m
+[1m--- a/.gitignore[m
+[1m+++ b/.gitignore[m
+[36m@@ -1,2 +1,6 @@[m
+ project_files.txt[m
+ New Text Document.py[m
+[32m+[m[32mnode_modules[m
+[32m+[m[32mdist[m
+[32m+[m[32m.env[m
+[32m+[m[32m*.log[m
+\ No newline at end of file[m
+[1mdiff --git a/cart.html b/cart.html[m
+[1mdeleted file mode 100644[m
+[1mindex e78eec4..0000000[m
+[1m--- a/cart.html[m
+[1m+++ /dev/null[m
+[36m@@ -1,117 +0,0 @@[m
+[31m-<!DOCTYPE html>[m
+[31m-<html lang="ru">[m
+[31m-<head>[m
+[31m-  <meta charset="utf-8">[m
+[31m-  <meta name="viewport" content="width=device-width, initial-scale=1">[m
+[31m-  <title>Ў Складовая — Корзина</title>[m
+[31m-[m
+[31m-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">[m
+[31m-  <link rel="stylesheet" type="text/css" href="styles.css" />[m
+[31m-</head>[m
+[31m-[m
+[31m-<body>[m
+[31m-  <div id="header"></div>[m
+[31m-  <main class="cart-page">[m
+[31m-    <div class="cart-page_container">[m
+[31m-      <div class="cart-page_header">[m
+[31m-        <div>[m
+[31m-          <h1 class="cart-page_title">Корзина</h1>[m
+[31m-          <p class="cart-page_subtitle" data-cart-count>1 товар готов к оформлению</p>[m
+[31m-        </div>[m
+[31m-[m
+[31m-        <div class="cart-page_steps" aria-label="Этапы оформления">[m
+[31m-          <span class="cart-page_step cart-page_step--active">1</span>[m
+[31m-          <span class="cart-page_step-label">Корзина</span>[m
+[31m-          <span class="cart-page_step-separator">›</span>[m
+[31m-          <span class="cart-page_step">2</span>[m
+[31m-          <span class="cart-page_step-label">Оформление</span>[m
+[31m-          <span class="cart-page_step-separator">›</span>[m
+[31m-          <span class="cart-page_step">3</span>[m
+[31m-          <span class="cart-page_step-label">Готово</span>[m
+[31m-        </div>[m
+[31m-      </div>[m
+[31m-[m
+[31m-      <section class="cart-page_layout">[m
+[31m-        <div class="cart-page_items-wrap">[m
+[31m-          <div class="cart-page_items" data-cart-items></div>[m
+[31m-[m
+[31m-          <div class="cart-page_empty" data-cart-empty hidden>[m
+[31m-            <div class="cart-page_empty-icon">[m
+[31m-              <i class="fa-solid fa-bag-shopping"></i>[m
+[31m-            </div>[m
+[31m-[m
+[31m-            <h2 class="cart-page_empty-title">Ваша корзина пуста</h2>[m
+[31m-            <p class="cart-page_empty-text">[m
+[31m-              Откройте для себя удивительные товары для вашего дома![m
+[31m-            </p>[m
+[31m-[m
+[31m-            <button type="button" class="cart-page_empty-button" data-cart-back>[m
+[31m-              Вернуться в каталог[m
+[31m-              <i class="fa-solid fa-arrow-right"></i>[m
+[31m-            </button>[m
+[31m-          </div>[m
+[31m-        </div>[m
+[31m-[m
+[31m-        <aside class="cart-page_summary" data-cart-summary>[m
+[31m-          <div class="cart-summary">[m
+[31m-            <div class="cart-summary_header">[m
+[31m-              <h2 class="cart-summary_title">Сводка заказа</h2>[m
+[31m-              <p class="cart-summary_subtitle" data-cart-summary-count>1 товар в корзине</p>[m
+[31m-            </div>[m
+[31m-[m
+[31m-            <div class="cart-summary_promo">[m
+[31m-              <label class="cart-summary_label" for="promo-code">[m
+[31m-                Промокод[m
+[31m-              </label>[m
+[31m-[m
+[31m-              <div class="cart-summary_promo-row">[m
+[31m-                <input[m
+[31m-                  id="promo-code"[m
+[31m-                  type="text"[m
+[31m-                  class="cart-summary_input"[m
+[31m-                  placeholder="Введите код"[m
+[31m-                  data-promo-input[m
+[31m-                >[m
+[31m-                <button type="button" class="cart-summary_button" data-promo-apply>Применить</button>[m
+[31m-              </div>[m
+[31m-[m
+[31m-              <p class="cart-summary_message" data-promo-message></p>[m
+[31m-            </div>[m
+[31m-[m
+[31m-            <dl class="cart-summary_totals">[m
+[31m-              <div class="cart-summary_row">[m
+[31m-                <dt>Подытог</dt>[m
+[31m-                <dd data-cart-subtotal>$0.00</dd>[m
+[31m-              </div>[m
+[31m-              <div class="cart-summary_row">[m
+[31m-                <dt>Скидка</dt>[m
+[31m-                <dd data-cart-discount>$0.00</dd>[m
+[31m-              </div>[m
+[31m-              <div class="cart-summary_row cart-summary_row--total">[m
+[31m-                <dt>Итого</dt>[m
+[31m-                <dd data-cart-total>$0.00</dd>[m
+[31m-              </div>[m
+[31m-            </dl>[m
+[31m-[m
+[31m-            <button type="button" class="cart-summary_checkout" data-cart-checkout>[m
+[31m-              <i class="fa-solid fa-lock"></i>[m
+[31m-              Перейти к оформлению[m
+[31m-            </button>[m
+[31m-[m
+[31m-            <button type="button" class="cart-summary_back" data-cart-back>[m
+[31m-              <i class="fa-solid fa-arrow-left"></i>[m
+[31m-              Продолжить покупки[m
+[31m-            </button>[m
+[31m-          </div>[m
+[31m-        </aside>[m
+[31m-      </section>[m
+[31m-    </div>[m
+[31m-  </main>[m
+[31m-[m
+[31m-  <div id="footer"></div>[m
+[31m-[m
+[31m-  <script src="scripts/common.js" defer></script>[m
+[31m-  <script src="scripts/layout.js" defer></script>[m
+[31m-  <script src="scripts/cart.page.js" defer></script>[m
+[31m-</body>[m
+[31m-</html>[m
+\ No newline at end of file[m
+[1mdiff --git a/catalog.html b/catalog.html[m
+[1mdeleted file mode 100644[m
+[1mindex c7a2b2e..0000000[m
+[1m--- a/catalog.html[m
+[1m+++ /dev/null[m
+[36m@@ -1,145 +0,0 @@[m
+[31m-<!DOCTYPE html>[m
+[31m-<html lang="ru">[m
+[31m-[m
+[31m-<head>[m
+[31m-  <meta charset="utf-8">[m
+[31m-  <meta name="viewport" content="width=device-width, initial-scale=1">[m
+[31m-  <title>Ў Складовая — Каталог</title>[m
+[31m-[m
+[31m-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">[m
+[31m-  <link rel="stylesheet" type="text/css" href="styles.css" />[m
+[31m-</head>[m
+[31m-[m
+[31m-<body>[m
+[31m-  <div id="header"></div>[m
+[31m-<div class="ad">[m
+[31m-  <div class="ad_textbox">[m
+[31m-    <p class="ad_headtext">Здесь могла быть Ваша реклама</p>[m
+[31m-    <p class="ad_text">Но ее не будет</p>[m
+[31m-  </div>[m
+[31m-</div>[m
+[31m-[m
+[31m-  <main>[m
+[31m-<section class="catalog">[m
+[31m-  <div class="catalog_container">[m
+[31m-    <aside class="catalog_sidebar">[m
+[31m-      <h2 class="catalog_sidebar-title">Фильтры</h2>[m
+[31m-[m
+[31m-      <div class="catalog_filters">[m
+[31m-        <div class="catalog_filter-group">[m
+[31m-          <h3 class="catalog_filter-title">Рейтинг</h3>[m
+[31m-[m
+[31m-          <label class="catalog_check">[m
+[31m-            <input type="checkbox" name="rating" value="5" />[m
+[31m-            <span>5 звёзд</span>[m
+[31m-          </label>[m
+[31m-[m
+[31m-          <label class="catalog_check">[m
+[31m-            <input type="checkbox" name="rating" value="4" />[m
+[31m-            <span>4+ звезды</span>[m
+[31m-          </label>[m
+[31m-[m
+[31m-          <label class="catalog_check">[m
+[31m-            <input type="checkbox" name="rating" value="3" />[m
+[31m-            <span>3+ звезды</span>[m
+[31m-          </label>[m
+[31m-        </div>[m
+[31m-[m
+[31m-        <div class="catalog_filter-group">[m
+[31m-          <h3 class="catalog_filter-title">Диапазон цен</h3>[m
+[31m-[m
+[31m-          <div class="catalog_price-row">[m
+[31m-            <label class="catalog_price-field">[m
+[31m-              <span class="catalog_price-label">От</span>[m
+[31m-              <input type="number" min="0" placeholder="$ 0" />[m
+[31m-            </label>[m
+[31m-[m
+[31m-            <span class="catalog_price-separator">-</span>[m
+[31m-[m
+[31m-            <label class="catalog_price-field">[m
+[31m-              <span class="catalog_price-label">До</span>[m
+[31m-              <input type="number" min="0" placeholder="$ 100" />[m
+[31m-            </label>[m
+[31m-          </div>[m
+[31m-        </div>[m
+[31m-      </div>[m
+[31m-    </aside>[m
+[31m-[m
+[31m-    <div class="catalog_content">[m
+[31m-      <div class="catalog_searchbar">[m
+[31m-        <label class="catalog_search">[m
+[31m-          <span class="catalog_search-icon">[m
+[31m-            <i class="fa-solid fa-magnifying-glass"></i>[m
+[31m-          </span>[m
+[31m-          <input type="search" placeholder="Поиск товаров" aria-label="Поиск товаров" />[m
+[31m-        </label>[m
+[31m-[m
+[31m-        <div class="catalog_sort">[m
+[31m-          <span class="catalog_sort-label">Сортировать:</span>[m
+[31m-<select class="catalog_select" aria-label="Сортировка товаров">[m
+[31m-  <option value="name-asc">Название (А-Я)</option>[m
+[31m-  <option value="name-desc">Название (Я-А)</option>[m
+[31m-  <option value="price-asc">Цена (сначала дешёвые)</option>[m
+[31m-  <option value="price-desc">Цена (сначала дорогие)</option>[m
+[31m-  <option value="rating-desc">Рейтинг</option>[m
+[31m-</select>[m
+[31m-        </div>[m
+[31m-      </div>[m
+[31m-[m
+[31m-      <div class="catalog_toolbar">[m
+[31m-        <p class="catalog_count">6 товаров</p>[m
+[31m-      </div>[m
+[31m-[m
+[31m-      <div class="catalog_grid" id="products-grid">[m
+[31m-      </div>[m
+[31m-    </div>[m
+[31m-  </div>[m
+[31m-</section>[m
+[31m-[m
+[31m-<template id="product-card-template">[m
+[31m-  <article class="product-card" data-product-card>[m
+[31m-    <a class="product-card_media-link" data-product-link href="#">[m
+[31m-      <div class="product-card_media">[m
+[31m-        <img[m
+[31m-          src="placeholder.png"[m
+[31m-          alt=""[m
+[31m-          class="product-card_image"[m
+[31m-          data-product-image[m
+[31m-        />[m
+[31m-        <span class="product-card_badge" data-product-price>$54.99</span>[m
+[31m-      </div>[m
+[31m-    </a>[m
+[31m-[m
+[31m-    <div class="product-card_body">[m
+[31m-      <h3 class="product-card_title">[m
+[31m-        <a class="product-card_title-link" data-product-link href="#" data-product-title>[m
+[31m-          Переноска для животных[m
+[31m-        </a>[m
+[31m-      </h3>[m
+[31m-[m
+[31m-      <div class="product-card_rating" data-product-rating>[m
+[31m-        <div class="product-card_stars" aria-hidden="true">[m
+[31m-          <i class="fa-solid fa-star"></i>[m
+[31m-          <i class="fa-solid fa-star"></i>[m
+[31m-          <i class="fa-solid fa-star"></i>[m
+[31m-          <i class="fa-solid fa-star"></i>[m
+[31m-          <i class="fa-regular fa-star"></i>[m
+[31m-        </div>[m
+[31m-        <span class="product-card_reviews" data-product-reviews>(4.0)</span>[m
+[31m-      </div>[m
+[31m-[m
+[31m-      <button type="button" class="product-card_add" data-product-add-to-cart>[m
+[31m-        В корзину[m
+[31m-      </button>[m
+[31m-    </div>[m
+[31m-  </article>[m
+[31m-</template>[m
+[31m-    [m
+[31m-  </main>[m
+[31m-[m
+[31m-<div id="footer"></div>[m
+[31m-<script src="scripts/common.js" defer></script>[m
+[31m-<script src="scripts/layout.js" defer></script>[m
+[31m-<script src="scripts/catalog.page.js" defer></script>[m
+[31m-</body>[m
+[31m-</html>[m
+\ No newline at end of file[m
+[1mdiff --git a/data/data.json b/data/data.json[m
+[1mdeleted file mode 100644[m
+[1mindex c454e0f..0000000[m
+[1m--- a/data/data.json[m
+[1m+++ /dev/null[m
+[36m@@ -1,210 +0,0 @@[m
+[31m-[[m
+[31m-  {[m
+[31m-    "id": 1,[m
+[31m-    "name": "Декоративная подушка «Сканди»",[m
+[31m-    "thumbnail": "images/placeholder_1.png",[m
+[31m-    "images": [[m
+[31m-      "images/placeholder_1.png",[m
+[31m-      "images/placeholder_2.png",[m
+[31m-      "images/placeholder_3.png"[m
+[31m-    ],[m
+[31m-    "price": 24.99,[m
+[31m-    "rating": 4.5,[m
+[31m-    "tags": ["Текстиль", "Гостиная", "Декор"],[m
+[31m-    "description": "Мягкая декоративная подушка в скандинавском стиле для гостиной и спальни.",[m
+[31m-    "fullDescription": "Декоративная подушка «Сканди» создана для того, чтобы добавить уюта и визуальной гармонии в интерьер. Она хорошо смотрится на диване, кресле или кровати, легко сочетается с нейтральной палитрой и подходит для повседневного использования. Съемный чехол облегчает уход, а мягкий наполнитель сохраняет форму даже при регулярной эксплуатации.",[m
+[31m-    "specs": [[m
+[31m-      "Размер: 45×45 см",[m
+[31m-      "Материал чехла: хлопок и полиэстер",[m
+[31m-      "Наполнитель: синтепух",[m
+[31m-      "Цвет: серый"[m
+[31m-    ],[m
+[31m-    "highlights": [[m
+[31m-      "Съемный чехол",[m
+[31m-      "Подходит для машинной стирки",[m
+[31m-      "Гипоаллергенный наполнитель"[m
+[31m-    ][m
+[31m-  },[m
+[31m-  {[m
+[31m-    "id": 2,[m
+[31m-    "name": "Настольная лампа «Лофт»",[m
+[31m-    "thumbnail": "images/placeholder_2.png",[m
+[31m-    "images": [[m
+[31m-      "images/placeholder_2.png",[m
+[31m-      "images/placeholder_1.png",[m
+[31m-      "images/placeholder_3.png"[m
+[31m-    ],[m
+[31m-    "price": 39.9,[m
+[31m-    "rating": 4.2,[m
+[31m-    "tags": ["Освещение", "Рабочее место", "Интерьер"],[m
+[31m-    "description": "Стильная настольная лампа для рабочего стола, тумбы или зоны чтения.",[m
+[31m-    "fullDescription": "Настольная лампа «Лофт» сочетает лаконичный дизайн и практичность. Она подходит для домашнего офиса, прикроватной зоны и рабочего стола. Металлический корпус делает конструкцию устойчивой, а регулируемый угол наклона помогает направить свет именно туда, где он нужен. Модель хорошо вписывается в современные интерьеры в стиле лофт, минимализм и сканди.",[m
+[31m-    "specs": [[m
+[31m-      "Высота: 40 см",[m
+[31m-      "Тип цоколя: E27",[m
+[31m-      "Материал: металл",[m
+[31m-      "Цвет: черный"[m
+[31m-    ],[m
+[31m-    "highlights": [[m
+[31m-      "Регулируемый угол наклона",[m
+[31m-      "Прочная металлическая конструкция",[m
+[31m-      "Компактный размер"[m
+[31m-    ][m
+[31m-  },[m
+[31m-  {[m
+[31m-    "id": 3,[m
+[31m-    "name": "Органайзер для хранения",[m
+[31m-    "thumbnail": "images/placeholder_3.png",[m
+[31m-    "images": [[m
+[31m-      "images/placeholder_3.png",[m
+[31m-      "images/placeholder_1.png",[m
+[31m-      "images/placeholder_2.png"[m
+[31m-    ],[m
+[31m-    "price": 18.5,[m
+[31m-    "rating": 4.0,[m
+[31m-    "tags": ["Хранение", "Организация", "Шкаф"],[m
+[31m-    "description": "Практичный органайзер для хранения вещей и поддержания порядка дома.",[m
+[31m-    "fullDescription": "Органайзер для хранения помогает удобно распределить вещи по полкам, шкафам и ящикам. Он подходит для сезонной одежды, аксессуаров, текстиля и мелких предметов. Складная конструкция экономит место, когда органайзер не используется, а легкий и прочный материал делает его удобным в ежедневной эксплуатации.",[m
+[31m-    "specs": [[m
+[31m-      "Материал: плотная ткань",[m
+[31m-      "Размер: 30×30×30 см",[m
+[31m-      "Конструкция: складная",[m
+[31m-      "Цвет: бежевый"[m
+[31m-    ],[m
+[31m-    "highlights": [[m
+[31m-      "Легко складывается",[m
+[31m-      "Подходит для шкафов и полок",[m
+[31m-      "Легкий и прочный"[m
+[31m-    ][m
+[31m-  },[m
+[31m-  {[m
+[31m-    "id": 4,[m
+[31m-    "name": "Коврик для ванной «Soft Touch»",[m
+[31m-    "thumbnail": "images/placeholder_1.png",[m
+[31m-    "images": [[m
+[31m-      "images/placeholder_1.png",[m
+[31m-      "images/placeholder_2.png",[m
+[31m-      "images/placeholder_3.png"[m
+[31m-    ],[m
+[31m-    "price": 15.99,[m
+[31m-    "rating": 4.7,[m
+[31m-    "tags": ["Ванная", "Текстиль", "Комфорт"],[m
+[31m-    "description": "Мягкий коврик для ванной с приятной поверхностью и противоскользящей основой.",[m
+[31m-    "fullDescription": "Коврик для ванной «Soft Touch» создаёт ощущение уюта сразу после выхода из душа. Мягкая фактура приятна на ощупь, а противоскользящая основа помогает коврику оставаться на месте даже на влажном полу. Он быстро сохнет, не требует сложного ухода и отлично подходит для повседневного использования в ванной комнате.",[m
+[31m-    "specs": [[m
+[31m-      "Размер: 50×80 см",[m
+[31m-      "Материал: микрофибра",[m
+[31m-      "Основа: резина",[m
+[31m-      "Цвет: голубой"[m
+[31m-    ],[m
+[31m-    "highlights": [[m
+[31m-      "Антискользящая основа",[m
+[31m-      "Быстро сохнет",[m
+[31m-      "Приятный на ощупь"[m
+[31m-    ][m
+[31m-  },[m
+[31m-  {[m
+[31m-    "id": 5,[m
+[31m-    "name": "Набор кухонных контейнеров",[m
+[31m-    "thumbnail": "images/placeholder_2.png",[m
+[31m-    "images": [[m
+[31m-      "images/placeholder_2.png",[m
+[31m-      "images/placeholder_3.png",[m
+[31m-      "images/placeholder_1.png"[m
+[31m-    ],[m
+[31m-    "price": 29.5,[m
+[31m-    "rating": 4.3,[m
+[31m-    "tags": ["Кухня", "Хранение", "Продукты"],[m
+[31m-    "description": "Набор герметичных контейнеров для хранения сухих и сыпучих продуктов.",[m
+[31m-    "fullDescription": "Набор кухонных контейнеров помогает организовать хранение круп, макарон, печенья, специй и других продуктов. Герметичные крышки сохраняют свежесть содержимого, а прозрачные стенки позволяют быстро видеть остаток. Контейнеры удобно использовать в холодильнике, на полке или в кухонном шкафу.",[m
+[31m-    "specs": [[m
+[31m-      "Количество: 5 шт",[m
+[31m-      "Материал: пластик BPA-free",[m
+[31m-      "Объем: от 0.5 до 2 л",[m
+[31m-      "Цвет: прозрачный"[m
+[31m-    ],[m
+[31m-    "highlights": [[m
+[31m-      "Герметичные крышки",[m
+[31m-      "Подходят для холодильника",[m
+[31m-      "Можно мыть в посудомоечной машине"[m
+[31m-    ][m
+[31m-  },[m
+[31m-  {[m
+[31m-    "id": 6,[m
+[31m-    "name": "Часы настенные минималистичные",[m
+[31m-    "thumbnail": "images/placeholder_3.png",[m
+[31m-    "images": [[m
+[31m-      "images/placeholder_3.png",[m
+[31m-      "images/placeholder_1.png",[m
+[31m-      "images/placeholder_2.png"[m
+[31m-    ],[m
+[31m-    "price": 22.0,[m
+[31m-    "rating": 4.1,[m
+[31m-    "tags": ["Декор", "Гостиная", "Интерьер"],[m
+[31m-    "description": "Стильные настенные часы без лишних деталей для современного интерьера.",[m
+[31m-    "fullDescription": "Настенные часы минималистичного дизайна подойдут для гостиной, кухни, кабинета или спальни. Чёткий циферблат легко читается с расстояния, а бесшумный механизм не мешает отдыху и работе. Благодаря универсальному дизайну часы легко вписываются в разные стилевые решения интерьера.",[m
+[31m-    "specs": [[m
+[31m-      "Диаметр: 30 см",[m
+[31m-      "Механизм: кварцевый",[m
+[31m-      "Материал: пластик",[m
+[31m-      "Цвет: белый"[m
+[31m-    ],[m
+[31m-    "highlights": [[m
+[31m-      "Бесшумный ход",[m
+[31m-      "Современный дизайн",[m
+[31m-      "Легкий монтаж"[m
+[31m-    ][m
+[31m-  },[m
+[31m-  {[m
+[31m-    "id": 7,[m
+[31m-    "name": "Плед «Уют»",[m
+[31m-    "thumbnail": "images/placeholder_1.png",[m
+[31m-    "images": [[m
+[31m-      "images/placeholder_1.png",[m
+[31m-      "images/placeholder_2.png",[m
+[31m-      "images/placeholder_3.png"[m
+[31m-    ],[m
+[31m-    "price": 34.0,[m
+[31m-    "rating": 4.8,[m
+[31m-    "tags": ["Текстиль", "Спальня", "Комфорт"],[m
+[31m-    "description": "Теплый и мягкий плед для дома, который помогает создать атмосферу уюта.",[m
+[31m-    "fullDescription": "Плед «Уют» подходит для холодных вечеров, отдыха на диване и оформления спальни. Мягкий флисовый материал приятен к коже, хорошо удерживает тепло и не теряет аккуратный вид после стирки. Это практичный и универсальный текстильный аксессуар для повседневного использования.",[m
+[31m-    "specs": [[m
+[31m-      "Размер: 150×200 см",[m
+[31m-      "Материал: флис",[m
+[31m-      "Цвет: бежевый",[m
+[31m-      "Вес: 800 г"[m
+[31m-    ],[m
+[31m-    "highlights": [[m
+[31m-      "Мягкий и теплый",[m
+[31m-      "Не скатывается",[m
+[31m-      "Легко стирается"[m
+[31m-    ][m
+[31m-  },[m
+[31m-  {[m
+[31m-    "id": 8,[m
+[31m-    "name": "Полка настенная деревянная",[m
+[31m-    "thumbnail": "images/placeholder_2.png",[m
+[31m-    "images": [[m
+[31m-      "images/placeholder_2.png",[m
+[31m-      "images/placeholder_1.png",[m
+[31m-      "images/placeholder_3.png"[m
+[31m-    ],[m
+[31m-    "pr

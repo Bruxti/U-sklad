@@ -1,2 +1,6 @@
 project_files.txt
 New Text Document.py
+node_modules
+dist
+.env
+*.log
