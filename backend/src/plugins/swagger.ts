@@ -1,9 +1,11 @@
 import fp from 'fastify-plugin'
 import swagger from '@fastify/swagger'
 import swaggerUi from '@fastify/swagger-ui'
+import { jsonSchemaTransform } from 'fastify-type-provider-zod'
 
 export default fp(async (fastify) => {
   await fastify.register(swagger, {
+    transform: jsonSchemaTransform,
     openapi: {
       info: { title: 'Shop API', version: '1.0.0' },
       servers: [{ url: '/' }],

@@ -4,3 +4,7 @@ node_modules
 dist
 .env
 *.log
+**/node_modules/
+check-setup.mjs
+scripts/
+bootstrap-checks.mjs
