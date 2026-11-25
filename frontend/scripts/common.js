@@ -174,6 +174,6 @@
     // cart
     getCart, addToCart, setCartItemQuantity, removeCartItem, applyPromo, checkout,
     // misc
-    refreshCartBadge, emitCartChange, redirectToLogin,
+    refreshCartBadge, emitCartChange, updateCartBadges: refreshCartBadge, redirectToLogin,
   }
 })()

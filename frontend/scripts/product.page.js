@@ -1,213 +1,170 @@
 document.addEventListener('DOMContentLoaded', async () => {
-  if (!window.USklad) return;
+  if (!window.USklad) return
 
-  const productId = new URLSearchParams(window.location.search).get('id');
+  const productId = new URLSearchParams(window.location.search).get('id')
 
-  const titleEl = document.querySelector('[data-product-title]');
-  const breadcrumbTitleEl = document.querySelector('[data-product-title-breadcrumb]');
-  const imageEl = document.querySelector('[data-product-image]');
-  const priceEl = document.querySelector('[data-product-price]');
-  const ratingEl = document.querySelector('[data-product-rating]');
-  const descriptionEl = document.querySelector('[data-product-description]');
-  const fullDescriptionEl = document.querySelector('[data-full-description]');
-  const specsEl = document.querySelector('[data-product-specs]');
-  const highlightsEl = document.querySelector('[data-product-highlights]');
-  const tagsEl = document.querySelector('[data-product-tags]');
-  const addButton = document.querySelector('[data-product-add-to-cart]');
-  const minusButton = document.querySelector('[data-quantity-minus]');
-  const plusButton = document.querySelector('[data-quantity-plus]');
-  const quantityValue = document.querySelector('[data-quantity-value]');
-  const thumbsRoot = document.querySelector('[data-product-thumbs]');
-  const prevButton = document.querySelector('[data-slider-prev]');
-  const nextButton = document.querySelector('[data-slider-next]');
-  const accordionToggle = document.querySelector('[data-accordion-toggle]');
-  const accordionPanel = document.querySelector('[data-accordion-panel]');
+  const titleEl = document.querySelector('[data-product-title]')
+  const breadcrumbTitleEl = document.querySelector('[data-product-title-breadcrumb]')
+  const imageEl = document.querySelector('[data-product-image]')
+  const priceEl = document.querySelector('[data-product-price]')
+  const ratingEl = document.querySelector('[data-product-rating]')
+  const descriptionEl = document.querySelector('[data-product-description]')
+  const fullDescriptionEl = document.querySelector('[data-full-description]')
+  const specsEl = document.querySelector('[data-product-specs]')
+  const highlightsEl = document.querySelector('[data-product-highlights]')
+  const tagsEl = document.querySelector('[data-product-tags]')
+  const addButton = document.querySelector('[data-product-add-to-cart]')
+  const minusButton = document.querySelector('[data-quantity-minus]')
+  const plusButton = document.querySelector('[data-quantity-plus]')
+  const quantityValue = document.querySelector('[data-quantity-value]')
+  const thumbsRoot = document.querySelector('[data-product-thumbs]')
+  const prevButton = document.querySelector('[data-slider-prev]')
+  const nextButton = document.querySelector('[data-slider-next]')
+  const accordionToggle = document.querySelector('[data-accordion-toggle]')
+  const accordionPanel = document.querySelector('[data-accordion-panel]')
 
-  let quantity = 1;
-  let currentImageIndex = 0;
-  const maxQuantity = 99;
+  let quantity = 1
+  let currentImageIndex = 0
+  const maxQuantity = 99
 
-  function formatMoney(value) {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD'
-    }).format(value);
-  }
+  const fmt = (v) =>
+    new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(v)
 
   function renderQuantity() {
-    if (quantityValue) {
-      quantityValue.textContent = String(quantity);
-    }
+    if (quantityValue) quantityValue.textContent = String(quantity)
   }
 
   function renderStars(rating) {
-    const fullStars = Math.floor(rating);
-    const hasHalfStar = rating - fullStars >= 0.25 && rating - fullStars < 0.75;
-
-    const stars = [];
-    for (let index = 0; index < 5; index += 1) {
-      if (index < fullStars) {
-        stars.push('<i class="fa-solid fa-star"></i>');
-      } else if (index === fullStars && hasHalfStar) {
-        stars.push('<i class="fa-solid fa-star-half-stroke"></i>');
-      } else {
-        stars.push('<i class="fa-regular fa-star"></i>');
-      }
+    const full = Math.floor(rating)
+    const half = rating - full >= 0.25 && rating - full < 0.75
+    const stars = []
+    for (let i = 0; i < 5; i++) {
+      if (i < full) stars.push('<i class="fa-solid fa-star"></i>')
+      else if (i === full && half) stars.push('<i class="fa-solid fa-star-half-stroke"></i>')
+      else stars.push('<i class="fa-regular fa-star"></i>')
     }
-
-    return stars.join('');
+    return stars.join('')
   }
 
   function setActiveImage(product) {
-    const images = (product.images && product.images.length ? product.images : [product.thumbnail])
-      .filter(Boolean);
-
-    const safeIndex = Math.max(0, Math.min(currentImageIndex, images.length - 1));
-    currentImageIndex = safeIndex;
-
+    const images = (product.images && product.images.length ? product.images : [product.thumbnail]).filter(Boolean)
+    const safe = Math.max(0, Math.min(currentImageIndex, images.length - 1))
+    currentImageIndex = safe
     if (imageEl) {
-      imageEl.src = images[safeIndex];
-      imageEl.alt = product.name;
+      imageEl.src = images[safe]
+      imageEl.alt = product.name
     }
-
     if (thumbsRoot) {
       thumbsRoot.innerHTML = images
-        .map((src, index) => {
-          const isActive = index === safeIndex ? ' product-page_thumb--active' : '';
-          return `
-            <button type="button" class="product-page_thumb${isActive}" data-thumb-index="${index}" aria-label="Показать изображение ${index + 1}">
-              <img src="${src}" alt="">
-            </button>
-          `;
+        .map(
+          (src, i) =>
+            `<button type="button" class="product-page_thumb${i === safe ? ' product-page_thumb--active' : ''}" data-thumb-index="${i}">
+               <img src="${src}" alt="">
+             </button>`,
+        )
+        .join('')
+      thumbsRoot.querySelectorAll('[data-thumb-index]').forEach((b) => {
+        b.addEventListener('click', () => {
+          currentImageIndex = Number(b.dataset.thumbIndex)
+          setActiveImage(product)
         })
-        .join('');
-
-      thumbsRoot.querySelectorAll('[data-thumb-index]').forEach((button) => {
-        button.addEventListener('click', () => {
-          currentImageIndex = Number(button.dataset.thumbIndex);
-          setActiveImage(product);
-        });
-      });
+      })
     }
   }
 
   function toggleAccordion() {
-    if (!accordionToggle || !accordionPanel) return;
-
-    const isOpen = accordionToggle.getAttribute('aria-expanded') === 'true';
-    accordionToggle.setAttribute('aria-expanded', String(!isOpen));
-    accordionPanel.hidden = isOpen;
+    if (!accordionToggle || !accordionPanel) return
+    const open = accordionToggle.getAttribute('aria-expanded') === 'true'
+    accordionToggle.setAttribute('aria-expanded', String(!open))
+    accordionPanel.hidden = open
   }
 
-  const product = await window.USklad.getProductById(productId);
+  let product = null
+  try {
+    product = await window.USklad.getProductById(productId)
+  } catch (e) {
+    console.error('Failed to fetch product:', e)
+  }
 
   if (!product) {
-    if (titleEl) titleEl.textContent = 'Товар не найден';
-    if (breadcrumbTitleEl) breadcrumbTitleEl.textContent = 'Товар не найден';
-    if (descriptionEl) descriptionEl.textContent = 'Запрошенный товар недоступен.';
-    if (priceEl) priceEl.textContent = '';
-    if (ratingEl) ratingEl.innerHTML = '';
-    if (addButton) addButton.disabled = true;
-    return;
+    if (titleEl) titleEl.textContent = 'Товар не найден'
+    if (breadcrumbTitleEl) breadcrumbTitleEl.textContent = 'Товар не найден'
+    if (descriptionEl) descriptionEl.textContent = 'Запрошенный товар недоступен.'
+    if (priceEl) priceEl.textContent = ''
+    if (ratingEl) ratingEl.innerHTML = ''
+    if (addButton) addButton.disabled = true
+    return
   }
 
-  if (breadcrumbTitleEl) breadcrumbTitleEl.textContent = product.name;
-  updateCartButton(product.id, addButton);
-
-  window.addEventListener('USklad:cartchange', () => {
-    updateCartButton(product.id, addButton);
-  });
-
-  if (titleEl) titleEl.textContent = product.name;
-
-  if (priceEl) {
-    priceEl.textContent = formatMoney(product.price);
-  }
+  if (breadcrumbTitleEl) breadcrumbTitleEl.textContent = product.name
+  if (titleEl) titleEl.textContent = product.name
+  if (priceEl) priceEl.textContent = fmt(product.price)
 
   if (ratingEl) {
     ratingEl.innerHTML = `
-      <div class="product-page_stars" aria-hidden="true">
-        ${renderStars(product.rating)}
-      </div>
-      <span class="product-page_rating-text">${product.rating.toFixed(1)} из 5 звёзд</span>
-    `;
+      <div class="product-page_stars" aria-hidden="true">${renderStars(product.rating)}</div>
+      <span class="product-page_rating-text">${product.rating.toFixed(1)} из 5 звёзд</span>`
   }
 
   if (tagsEl) {
     tagsEl.innerHTML = (product.tags || [])
-      .map((tag) => `<span class="product-page_tag-chip">${tag}</span>`)
-      .join('');
+      .map((t) => `<span class="product-page_tag-chip">${t}</span>`)
+      .join('')
   }
-
-  if (descriptionEl) {
-    descriptionEl.textContent = product.description;
-  }
-
-  if (fullDescriptionEl) {
-    fullDescriptionEl.textContent = product.fullDescription;
-  }
-
+  if (descriptionEl) descriptionEl.textContent = product.description
+  if (fullDescriptionEl) fullDescriptionEl.textContent = product.fullDescription
   if (specsEl) {
     specsEl.innerHTML = (product.specs || [])
-      .map((item) => `<li class="product-page_spec-item">${item}</li>`)
-      .join('');
+      .map((s) => `<li class="product-page_spec-item">${s}</li>`)
+      .join('')
   }
-
   if (highlightsEl) {
     highlightsEl.innerHTML = (product.highlights || [])
-      .map((item) => `<li class="product-page_highlight-item">${item}</li>`)
-      .join('');
+      .map((h) => `<li class="product-page_highlight-item">${h}</li>`)
+      .join('')
   }
 
-  setActiveImage(product);
+  setActiveImage(product)
+  renderQuantity()
+  await updateCartButton(product.id, addButton)
 
-  if (minusButton) {
-    minusButton.addEventListener('click', () => {
-      quantity = Math.max(1, quantity - 1);
-      renderQuantity();
-    });
-  }
+  minusButton?.addEventListener('click', () => {
+    quantity = Math.max(1, quantity - 1)
+    renderQuantity()
+  })
+  plusButton?.addEventListener('click', () => {
+    quantity = Math.min(maxQuantity, quantity + 1)
+    renderQuantity()
+  })
 
-  if (plusButton) {
-    plusButton.addEventListener('click', () => {
-      quantity = Math.min(maxQuantity, quantity + 1);
-      renderQuantity();
-    });
-  }
+  prevButton?.addEventListener('click', () => {
+    const images = (product.images?.length ? product.images : [product.thumbnail]).filter(Boolean)
+    currentImageIndex = (currentImageIndex - 1 + images.length) % images.length
+    setActiveImage(product)
+  })
+  nextButton?.addEventListener('click', () => {
+    const images = (product.images?.length ? product.images : [product.thumbnail]).filter(Boolean)
+    currentImageIndex = (currentImageIndex + 1) % images.length
+    setActiveImage(product)
+  })
 
-  if (prevButton) {
-    prevButton.addEventListener('click', () => {
-      const images = (product.images && product.images.length ? product.images : [product.thumbnail]).filter(Boolean);
-      currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
-      setActiveImage(product);
-    });
-  }
+  accordionToggle?.addEventListener('click', toggleAccordion)
 
-  if (nextButton) {
-    nextButton.addEventListener('click', () => {
-      const images = (product.images && product.images.length ? product.images : [product.thumbnail]).filter(Boolean);
-      currentImageIndex = (currentImageIndex + 1) % images.length;
-      setActiveImage(product);
-    });
-  }
+  addButton?.addEventListener('click', async () => {
+    if (!window.USklad.getToken()) {
+      window.USklad.redirectToLogin()
+      return
+    }
+    try {
+      await window.USklad.addToCart(product.id, quantity)
+      await updateCartButton(product.id, addButton)
+    } catch (err) {
+      alert(err.message || 'Не удалось добавить в корзину')
+    }
+  })
 
-  if (accordionToggle) {
-    accordionToggle.addEventListener('click', toggleAccordion);
-  }
-
-  if (addButton) {
-    addButton.addEventListener('click', async () => {
-      try {
-        await window.USklad.addToCart(product.id, quantity)
-        updateCartButton(product.id, addButton)
-      } catch (err) {
-        if (err.status !== 401) alert(err.message || 'Не удалось добавить в корзину')
-      }
-    })
-  }
-
-  renderQuantity();
-});
+  window.addEventListener('USklad:cartchange', () => updateCartButton(product.id, addButton))
+})
 
 async function updateCartButton(productId, button) {
   if (!button) return
@@ -226,5 +183,6 @@ async function updateCartButton(productId, button) {
   } catch {
     button.textContent = 'В корзину'
     button.disabled = false
+    button.classList.remove('product-page_cart-button--in-cart')
   }
 }
