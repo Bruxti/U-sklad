@@ -1,231 +1,179 @@
 (() => {
-  const PRODUCTS_URL = './data/data.json';
-  const CART_STORAGE_KEY = 'USklad_cart_ids';
-  const CART_CHANGE_EVENT = 'USklad:cartchange';
+  const API = window.SHOP_CONFIG?.apiBase || 'http://localhost:3000'
+  const TOKEN_KEY = 'USklad_token'
+  const CART_CHANGE_EVENT = 'USklad:cartchange'
 
-  function normalizeId(value) {
-    const id = Number(value);
-    return Number.isInteger(id) && id > 0 ? id : null;
+  // ---------- auth ----------
+  function getToken() {
+    return localStorage.getItem(TOKEN_KEY)
   }
-
-function toProduct(raw, cartIds = []) {
-  const id = normalizeId(raw.id);
-
-  return {
-    id,
-    name: String(raw.name ?? ''),
-    thumbnail: String(raw.thumbnail ?? ''),
-    images: Array.isArray(raw.images) ? raw.images.map(String) : [],
-    price: Number(raw.price ?? 0),
-    rating: Number(raw.rating ?? 0),
-    tags: Array.isArray(raw.tags) ? raw.tags.map(String) : [],
-    description: String(raw.description ?? ''),
-    fullDescription: String(raw.fullDescription ?? ''),
-    specs: Array.isArray(raw.specs) ? raw.specs.map(String) : [],
-    highlights: Array.isArray(raw.highlights) ? raw.highlights.map(String) : [],
-    isInTheCart: id !== null ? cartIds.includes(id) : false
-  };
-}
-
-  function getCartIds() {
+  function setToken(token) {
+    if (token) localStorage.setItem(TOKEN_KEY, token)
+    else localStorage.removeItem(TOKEN_KEY)
+  }
+  function decodeToken(token) {
+    if (!token) return null
     try {
-      const raw = localStorage.getItem(CART_STORAGE_KEY);
-      if (!raw) return [];
-
-      const parsed = JSON.parse(raw);
-      if (!Array.isArray(parsed)) return [];
-
-      return parsed
-        .map(normalizeId)
-        .filter((id) => id !== null);
+      const [, payload] = token.split('.')
+      return JSON.parse(atob(payload.replace(/-/g, '+').replace(/_/g, '/')))
     } catch {
-      return [];
+      return null
     }
   }
-
-  function getCartCount() {
-    return getCartIds().length;
+  function getCurrentUser() {
+    const t = getToken()
+    if (!t) return null
+    const p = decodeToken(t)
+    if (!p) return null
+    return { id: Number(p.sub), role: p.role }
+  }
+  function isAdmin() {
+    return getCurrentUser()?.role === 'admin'
+  }
+  function logout() {
+    setToken(null)
+    window.dispatchEvent(new CustomEvent(CART_CHANGE_EVENT, { detail: { count: 0 } }))
   }
 
-  function updateCartBadges() {
-    const count = getCartCount();
-    const badges = document.querySelectorAll('[data-cart-badge]');
-
-    badges.forEach((badge) => {
-      badge.textContent = String(count);
-      badge.hidden = count === 0;
-    });
-
-    return count;
-  }
-
-  function emitCartChange() {
-    const count = updateCartBadges();
-
-    window.dispatchEvent(
-      new CustomEvent(CART_CHANGE_EVENT, {
-        detail: {
-          count,
-          ids: getCartIds()
-        }
-      })
-    );
-  }
-
-  function saveCartIds(ids) {
-    const validIds = ids
-      .map(normalizeId)
-      .filter((id) => id !== null);
-
-    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(validIds));
-    emitCartChange();
-
-    return validIds;
-  }
-
-  function addToCart(productId) {
-    const id = normalizeId(productId);
-    if (id === null) return getCartIds();
-
-    const cartIds = getCartIds();
-    cartIds.push(id);
-
-    return saveCartIds(cartIds);
-  }
-
-  function removeOneFromCart(productId) {
-    const id = normalizeId(productId);
-    if (id === null) return getCartIds();
-
-    const cartIds = getCartIds();
-    const index = cartIds.indexOf(id);
-
-    if (index !== -1) {
-      cartIds.splice(index, 1);
+  // ---------- HTTP ----------
+  async function request(method, path, { body, auth = false } = {}) {
+    const headers = {}
+    if (body !== undefined) headers['content-type'] = 'application/json'
+    if (auth) {
+      const token = getToken()
+      if (!token) throw { status: 401, code: 'NO_TOKEN', message: 'Требуется вход' }
+      headers.authorization = `Bearer ${token}`
     }
 
-    return saveCartIds(cartIds);
-  }
-
-  function removeAllFromCart(productId) {
-    const id = normalizeId(productId);
-    if (id === null) return getCartIds();
-
-    const cartIds = getCartIds().filter((itemId) => itemId !== id);
-    return saveCartIds(cartIds);
-  }
-
-  function clearInvalidCartIds(validProducts) {
-    const validIds = new Set(validProducts.map((product) => product.id));
-    const filtered = getCartIds().filter((id) => validIds.has(id));
-    return saveCartIds(filtered);
-  }
-
-  async function loadProducts() {
-    const response = await fetch(PRODUCTS_URL);
-
-    if (!response.ok) {
-      throw new Error(`Failed to load data/data.json: ${response.status}`);
+    const res = await fetch(`${API}${path}`, {
+      method,
+      headers,
+      body: body !== undefined ? JSON.stringify(body) : undefined,
+    })
+    const text = await res.text()
+    let data = null
+    if (text) {
+      try { data = JSON.parse(text) } catch { data = text }
     }
-
-    const rawProducts = await response.json();
-    const cartIds = getCartIds();
-
-    return Array.isArray(rawProducts)
-      ? rawProducts
-          .map((raw) => toProduct(raw, cartIds))
-          .filter((product) => product.id !== null)
-      : [];
+    if (!res.ok) {
+      const err = data?.error || { code: 'HTTP_ERROR', message: `HTTP ${res.status}` }
+      throw { status: res.status, ...err }
+    }
+    return data
   }
 
-  async function getHomeProducts(limit = 6) {
-    const products = await loadProducts();
-
-    return products.slice(0, limit).map((product) => ({
-      id: product.id,
-      name: product.name,
-      thumbnail: product.thumbnail,
-      price: product.price,
-      rating: product.rating
-    }));
+  // ---------- products ----------
+  async function loadProducts(params = {}) {
+    const qs = new URLSearchParams()
+    for (const [k, v] of Object.entries(params)) {
+      if (v !== undefined && v !== null && v !== '') qs.set(k, String(v))
+    }
+    const suffix = qs.toString() ? `?${qs.toString()}` : ''
+    return request('GET', `/api/products${suffix}`)
   }
 
   async function getProductById(id) {
-    const productId = normalizeId(id);
-    if (productId === null) return null;
-
-    const products = await loadProducts();
-    return products.find((product) => product.id === productId) || null;
+    if (!id) return null
+    try {
+      return await request('GET', `/api/products/${id}`)
+    } catch (e) {
+      if (e.status === 404) return null
+      throw e
+    }
   }
 
-  async function filterProducts({
-    minPrice = 0,
-    maxPrice = Number.POSITIVE_INFINITY,
-    minRating = 0,
-    limit = 6
-  } = {}) {
-    const products = await loadProducts();
-
-    return products
-      .filter((product) => {
-        return (
-          product.price >= minPrice &&
-          product.price <= maxPrice &&
-          product.rating >= minRating
-        );
-      })
-      .slice(0, limit);
+  async function getHomeProducts(limit = 6) {
+    const res = await loadProducts({ limit, sort_by: 'title', order: 'asc' })
+    return res.items
   }
 
-  async function getCartProducts() {
-    const products = await loadProducts();
-    const cartIds = getCartIds();
-    const productMap = new Map(products.map((product) => [product.id, product]));
-
-    return cartIds
-      .map((id) => productMap.get(id))
-      .filter(Boolean)
-      .map((product) => ({
-        id: product.id,
-        name: product.name,
-        tag: product.tags[0] || '',
-        thumbnail: product.thumbnail,
-        price: product.price
-      }));
+  // ---------- cart ----------
+  async function getCart() {
+    if (!getToken()) return { items: [], subtotal: 0, discount: 0, total: 0, promoCode: null, itemCount: 0 }
+    return request('GET', '/api/cart', { auth: true })
   }
 
-  function initCartBadgeSync() {
-    updateCartBadges();
-
-    window.addEventListener('storage', (event) => {
-      if (event.key === CART_STORAGE_KEY) {
-        updateCartBadges();
-      }
-    });
-
-    document.addEventListener('DOMContentLoaded', () => {
-      updateCartBadges();
-    });
+  async function addToCart(productId, quantity = 1) {
+    if (!getToken()) {
+      redirectToLogin()
+      throw { status: 401, code: 'NO_TOKEN' }
+    }
+    const cart = await request('POST', '/api/cart/items', {
+      auth: true,
+      body: { productId, quantity },
+    })
+    emitCartChange(cart)
+    return cart
   }
 
-  initCartBadgeSync();
+  async function setCartItemQuantity(itemId, quantity) {
+    const cart = await request('PATCH', `/api/cart/items/${itemId}`, {
+      auth: true,
+      body: { quantity },
+    })
+    emitCartChange(cart)
+    return cart
+  }
+
+  async function removeCartItem(itemId) {
+    const cart = await request('DELETE', `/api/cart/items/${itemId}`, { auth: true })
+    emitCartChange(cart)
+    return cart
+  }
+
+  async function applyPromo(code) {
+    const cart = await request('POST', '/api/cart/apply-promo', {
+      auth: true,
+      body: { code },
+    })
+    emitCartChange(cart)
+    return cart
+  }
+
+  async function checkout() {
+    const res = await request('POST', '/api/cart/checkout', { auth: true, body: {} })
+    emitCartChange({ itemCount: 0 })
+    return res
+  }
+
+  // ---------- shared ----------
+  async function refreshCartBadge() {
+    const count = getToken() ? (await getCart()).itemCount : 0
+    document.querySelectorAll('[data-cart-badge]').forEach((b) => {
+      b.textContent = String(count)
+      b.hidden = count === 0
+    })
+    return count
+  }
+
+  function emitCartChange(cart) {
+    const count = cart?.itemCount ?? 0
+    document.querySelectorAll('[data-cart-badge]').forEach((b) => {
+      b.textContent = String(count)
+      b.hidden = count === 0
+    })
+    window.dispatchEvent(new CustomEvent(CART_CHANGE_EVENT, { detail: { count, cart } }))
+  }
+
+  function redirectToLogin() {
+    const ret = encodeURIComponent(window.location.pathname + window.location.search)
+    window.location.href = `login.html?return=${ret}`
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    refreshCartBadge().catch(() => {})
+  })
 
   window.USklad = {
-    normalizeId,
-    toProduct,
-    getCartIds,
-    getCartCount,
-    saveCartIds,
-    addToCart,
-    removeOneFromCart,
-    removeAllFromCart,
-    clearInvalidCartIds,
-    loadProducts,
-    getHomeProducts,
-    getProductById,
-    filterProducts,
-    getCartProducts,
-    updateCartBadges,
-    emitCartChange
-  };
-})();
+    API,
+    request,
+    // auth
+    getToken, setToken, getCurrentUser, isAdmin, logout,
+    // products
+    loadProducts, getProductById, getHomeProducts,
+    // cart
+    getCart, addToCart, setCartItemQuantity, removeCartItem, applyPromo, checkout,
+    // misc
+    refreshCartBadge, emitCartChange, redirectToLogin,
+  }
+})()

@@ -196,31 +196,35 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   if (addButton) {
-    addButton.addEventListener('click', () => {
-      for (let index = 0; index < quantity; index += 1) {
-        window.USklad.addToCart(product.id);
+    addButton.addEventListener('click', async () => {
+      try {
+        await window.USklad.addToCart(product.id, quantity)
+        updateCartButton(product.id, addButton)
+      } catch (err) {
+        if (err.status !== 401) alert(err.message || 'Не удалось добавить в корзину')
       }
-
-      updateCartButton(product.id, addButton);
-    });
+    })
   }
 
   renderQuantity();
 });
 
-function updateCartButton(productId, button) {
-  if (!button) return;
-
-  const cartIds = window.USklad.getCartIds();
-  const inCart = cartIds.includes(productId);
-
-  if (inCart) {
-    button.textContent = 'В корзине';
-    button.disabled = true;
-    button.classList.add('product-page_cart-button--in-cart');
-  } else {
-    button.textContent = 'В корзину';
-    button.disabled = false;
-    button.classList.remove('product-page_cart-button--in-cart');
+async function updateCartButton(productId, button) {
+  if (!button) return
+  if (!window.USklad.getToken()) {
+    button.textContent = 'В корзину'
+    button.disabled = false
+    button.classList.remove('product-page_cart-button--in-cart')
+    return
+  }
+  try {
+    const cart = await window.USklad.getCart()
+    const inCart = cart.items.some((i) => i.productId === productId)
+    button.textContent = inCart ? 'В корзине' : 'В корзину'
+    button.disabled = inCart
+    button.classList.toggle('product-page_cart-button--in-cart', inCart)
+  } catch {
+    button.textContent = 'В корзину'
+    button.disabled = false
   }
 }

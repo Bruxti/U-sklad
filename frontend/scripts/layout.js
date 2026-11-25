@@ -3,11 +3,21 @@ document.addEventListener('DOMContentLoaded', async () => {
     loadComponent('header', 'components/header.html'),
     loadComponent('footer', 'components/footer.html')
   ]);
+  /////
+if (window.USklad?.getToken()) {
+  document.querySelectorAll('[data-login-link]').forEach((el) => (el.hidden = true))
+  document.querySelectorAll('[data-logout-btn]').forEach((el) => (el.hidden = false))
+}
+document.querySelectorAll('[data-logout-btn]').forEach((el) =>
+  el.addEventListener('click', () => {
+    window.USklad.logout()
+    window.location.href = 'index.html'
+  }),
+)
+////
 
-  function updateBadge() {
-    if (window.USklad) {
-      window.USklad.updateCartBadges();
-    }
+  async function updateBadge() {
+    if (window.USklad) await window.USklad.refreshCartBadge()
   }
 
   updateBadge();
