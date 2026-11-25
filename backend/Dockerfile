@@ -9,6 +9,10 @@ RUN npm ci --no-audit --no-fund || npm install --no-audit --no-fund
 # ---------- build ----------
 FROM node:22-alpine AS build
 WORKDIR /app
+
+# OpenSSL нужен Prisma на Alpine (см. https://github.com/prisma/orm/issues/25817)
+RUN apk add --no-cache openssl
+
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN npx prisma generate
