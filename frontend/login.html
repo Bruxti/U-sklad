@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Вход — USklad</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="header"></div>
+  <main class="auth-page">
+    <h1>Вход</h1>
+    <form data-login-form class="auth-form">
+      <label>Email
+        <input type="email" name="email" required autocomplete="email">
+      </label>
+      <label>Пароль
+        <input type="password" name="password" required autocomplete="current-password">
+      </label>
+      <p data-auth-error hidden class="auth-error"></p>
+      <button type="submit">Войти</button>
+    </form>
+    <p>Нет аккаунта? <a href="register.html">Зарегистрироваться</a></p>
+  </main>
+  <div id="footer"></div>
+  <script src="scripts/config.js"></script>
+  <script src="scripts/common.js"></script>
+  <script src="scripts/layout.js"></script>
+  <script src="scripts/auth.js"></script>
+</body>
+</html>
