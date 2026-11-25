@@ -8,6 +8,7 @@ import prismaPlugin from './plugins/prisma.js'
 import redisPlugin from './plugins/redis.js'
 import jwtPlugin from './plugins/jwt.js'
 import authPlugin from './plugins/auth.js'
+import { promoCodesRoutes } from './modules/promo-codes/routes.js'
 import errorHandlerPlugin from './plugins/error-handler.js'
 
 import { authRoutes } from './modules/auth/routes.js'
@@ -38,6 +39,7 @@ export async function buildApp() {
   await app.register(authRoutes, { prefix: '/api/auth' })
   await app.register(productsRoutes, { prefix: '/api/products' })
   await app.register(cartRoutes, { prefix: '/api/cart' })
+  await app.register(promoCodesRoutes, { prefix: '/api/promo-codes' })
 
   return app
 }
