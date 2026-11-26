@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Админ-панель — Ў Складовая</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="header"></div>
+
+  <main class="cart-page">
+    <div class="cart-page_container">
+      <div class="cart-page_header">
+        <div>
+          <h1 class="cart-page_title">Админ-панель</h1>
+          <p class="cart-page_subtitle" data-admin-subtitle>Управление каталогом</p>
+        </div>
+
+        <div class="cart-page_steps" data-admin-tabs hidden>
+          <button type="button" class="cart-page_empty-button"
+                  data-tab-btn="products" style="padding:0.5rem 1rem;">Товары</button>
+          <button type="button" class="cart-page_empty-button"
+                  data-tab-btn="promos" style="padding:0.5rem 1rem; background:#6b7280;">Промокоды</button>
+        </div>
+      </div>
+
+      <!-- Запрещено -->
+      <div class="cart-page_empty" data-admin-forbidden hidden>
+        <div class="cart-page_empty-icon"><i class="fa-solid fa-lock"></i></div>
+        <h2 class="cart-page_empty-title">Доступ запрещён</h2>
+        <p class="cart-page_empty-text">Для этой страницы нужны права администратора.</p>
+
+        <a href="login.html?return=admin.html"
+           class="cart-page_empty-button"
+           style="text-decoration:none; display:inline-block; margin-bottom:0.75rem;"
+           data-admin-login-link>Войти как админ</a>
+
+        <button type="button" class="cart-page_empty-button"
+                style="background:#6b7280;" data-admin-logout hidden>
+          Выйти и сменить аккаунт
+        </button>
+      </div>
+
+      <!-- Контент -->
+      <section data-admin-content hidden>
+        <!-- Товары -->
+        <div data-tab="products">
+          <div class="catalog_toolbar">
+            <p class="catalog_count" data-products-count>0 товаров</p>
+            <button type="button" class="product-card_add" data-product-new
+                    style="width:auto; padding:0.5rem 1rem;">+ Добавить товар</button>
+          </div>
+          <div class="cart-page_items" data-products-list></div>
+        </div>
+
+        <!-- Промокоды -->
+        <div data-tab="promos" hidden>
+          <div class="catalog_toolbar">
+            <p class="catalog_count" data-promos-count>0 промокодов</p>
+            <button type="button" class="product-card_add" data-promo-new
+                    style="width:auto; padding:0.5rem 1rem;">+ Добавить промокод</button>
+          </div>
+          <div class="cart-page_items" data-promos-list></div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <div id="footer"></div>
+
+  <!-- Модальное окно (без новых CSS-классов, инлайн поверх старой темы) -->
+  <div data-modal hidden
+     style="position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:100;
+            align-items:center; justify-content:center; padding:1rem;">
+    <div style="background:#ffffff; border-radius:1rem; max-width:640px; width:100%;
+                max-height:90vh; overflow:auto;">
+      <div class="cart-summary_header" style="border-radius:1rem 1rem 0 0;">
+        <h2 class="cart-summary_title" data-modal-title>—</h2>
+        <p class="cart-summary_subtitle" data-modal-subtitle></p>
+      </div>
+
+      <form data-modal-form style="padding:1rem;">
+        <div data-modal-body></div>
+
+        <p data-modal-error hidden
+           style="color:#dc2626; margin-top:0.75rem; font-size:0.85rem;"></p>
+
+        <div style="display:flex; gap:0.5rem; justify-content:flex-end; margin-top:1rem;">
+          <button type="button" class="cart-summary_button" data-modal-cancel
+                  style="background:#6b7280;">Отмена</button>
+          <button type="submit" class="product-card_add"
+                  style="width:auto; padding:0.5rem 1.5rem;">Сохранить</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="scripts/config.js"></script>
+  <script src="scripts/common.js"></script>
+  <script src="scripts/layout.js"></script>
+  <script src="scripts/admin.page.js"></script>
+</body>
+</html>

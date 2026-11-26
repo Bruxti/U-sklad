@@ -15,9 +15,32 @@ document.addEventListener('DOMContentLoaded', async () => {
     window.addEventListener('USklad:cartchange', updateBadge)
   }
 
+  // Обновляем состояние кнопок логина/выхода в шапке
+  updateHeaderAuth()
+
   const header = document.querySelector('.site-header')
-  const toggle = header?.querySelector('.navbar__menu-toggle')
+  const toggle = header?.querySelector('.navbar_menu-toggle')
   toggle?.addEventListener('click', () => header.classList.toggle('site-header--menu-open'))
+})
+
+function updateHeaderAuth() {
+  if (!window.USklad) return
+  const user = window.USklad.getCurrentUser()
+
+  document.querySelectorAll('[data-auth-guest]').forEach((el) => { el.hidden = !!user })
+  document.querySelectorAll('[data-auth-user]').forEach((el) => { el.hidden = !user })
+  document.querySelectorAll('[data-auth-admin]').forEach((el) => {
+    el.hidden = user?.role !== 'admin'
+  })
+}
+
+// Глобальный обработчик «Выйти»
+document.addEventListener('click', (e) => {
+  const logoutLink = e.target.closest('[data-logout]')
+  if (!logoutLink) return
+  e.preventDefault()
+  window.USklad?.logout()
+  window.location.href = 'index.html'
 })
 
 async function loadComponent(targetId, url) {

@@ -2,26 +2,65 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Вход — USklad</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Вход — Ў Складовая</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div id="header"></div>
-  <main class="auth-page">
-    <h1>Вход</h1>
-    <form data-login-form class="auth-form">
-      <label>Email
-        <input type="email" name="email" required autocomplete="email">
-      </label>
-      <label>Пароль
-        <input type="password" name="password" required autocomplete="current-password">
-      </label>
-      <p data-auth-error hidden class="auth-error"></p>
-      <button type="submit">Войти</button>
-    </form>
-    <p>Нет аккаунта? <a href="register.html">Зарегистрироваться</a></p>
+
+  <main class="cart-page">
+    <div class="cart-page_container" style="max-width: 480px;">
+      <div class="cart-page_header">
+        <div>
+          <h1 class="cart-page_title">Вход</h1>
+          <p class="cart-page_subtitle">Войдите, чтобы продолжить покупки</p>
+        </div>
+      </div>
+
+      <aside class="cart-summary" style="position: static;">
+        <div class="cart-summary_header">
+          <h2 class="cart-summary_title">Авторизация</h2>
+          <p class="cart-summary_subtitle">Email и пароль</p>
+        </div>
+
+        <form data-login-form style="padding: 1rem;">
+          <label class="cart-summary_label" for="login-email">Email</label>
+          <input
+            id="login-email"
+            class="cart-summary_input"
+            style="width:100%; box-sizing:border-box; margin-bottom:1rem;"
+            type="email" name="email" required autocomplete="email">
+
+          <label class="cart-summary_label" for="login-password">Пароль</label>
+          <input
+            id="login-password"
+            class="cart-summary_input"
+            style="width:100%; box-sizing:border-box;"
+            type="password" name="password" required autocomplete="current-password">
+
+          <p data-auth-error hidden
+             style="color:#dc2626; margin-top:0.75rem; font-size:0.85rem;"></p>
+
+          <button type="submit" class="cart-summary_checkout"
+                  style="margin:1rem 0 0; width:100%;">
+            Войти
+          </button>
+        </form>
+
+        <p style="text-align:center; padding:0 1rem 1rem; color:#6b7280; font-size:0.85rem;">
+          Нет аккаунта?
+          <a href="register.html" style="color:#f97316; text-decoration:none; font-weight:600;">
+            Зарегистрироваться
+          </a>
+        </p>
+      </aside>
+    </div>
   </main>
+
   <div id="footer"></div>
+
   <script src="scripts/config.js"></script>
   <script src="scripts/common.js"></script>
   <script src="scripts/layout.js"></script>

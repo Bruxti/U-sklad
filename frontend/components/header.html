@@ -1,5 +1,5 @@
 <header class="site-header" style="position: sticky; top: 0; z-index: 50;">
-  <nav class="navbar" style="position: relative;">  
+  <nav class="navbar" style="position: relative;">
     <a href="index.html" class="navbar_logo" aria-label="Ў Складовая">
       <img src="images/logo.png" alt="Ў Складовая">
     </a>
@@ -9,7 +9,10 @@
       <li><a href="index.html">Категории</a></li>
       <li><a href="index.html">Акции</a></li>
       <li><a href="index.html">О нас</a></li>
-      <a href="login.html">Войти</a>
+
+      <li data-auth-guest><a href="login.html">Войти</a></li>
+      <li data-auth-admin hidden><a href="admin.html">Админ-панель</a></li>
+      <li data-auth-user hidden><a href="#" data-logout>Выйти</a></li>
     </ul>
 
     <div class="navbar_icons">
@@ -18,10 +21,10 @@
       </button>
 
       <a href="cart.html">
-      <button class="navbar_icon navbar_cart" type="button" aria-label="Корзина">
-        <i class="fa fa-shopping-cart"></i>
-        <span class="navbar_badge" data-cart-badge hidden>0</span>
-      </button>
+        <button class="navbar_icon navbar_cart" type="button" aria-label="Корзина">
+          <i class="fa fa-shopping-cart"></i>
+          <span class="navbar_badge" data-cart-badge hidden>0</span>
+        </button>
       </a>
 
       <button class="navbar_icon navbar_menu-toggle" type="button" aria-label="Меню">
