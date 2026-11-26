@@ -6,5 +6,5 @@ dist
 *.log
 **/node_modules/
 check-setup.mjs
-scripts/
+/scripts/
 bootstrap-checks.mjs
